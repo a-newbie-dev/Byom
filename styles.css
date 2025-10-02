@@ -55,14 +55,34 @@ header {
 .om-symbol-wrapper {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 40px;
+    position: relative;
+    height: 160px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.om-symbol {
+.om-text {
+    font-size: 10rem;
+    color: #2c3e50;
+    font-family: 'Noto Sans Devanagari', 'Arial Unicode MS', serif;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    line-height: 0.9;
+    margin-top: -10px;
+}
+
+.om-overlay {
     width: 100%;
-    max-width: 400px;
-    height: auto;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
 }
 
 /* Clickable Sections */
@@ -73,6 +93,108 @@ header {
 
 .clickable:hover {
     transform: scale(1.05);
+}
+
+/* Interactive Zones */
+.interactive-zone {
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    opacity: 0.08 !important; /* Slightly more visible for stability */
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 1;
+}
+
+/* Add subtle pulsing animation to indicate interactivity */
+.interactive-zone {
+    animation: subtlePulse 5s ease-in-out infinite;
+}
+
+.soul-section:hover .soul-zone {
+    opacity: 0.7 !important;
+    animation: glow 2s ease-in-out infinite;
+}
+
+.mind-section:hover .mind-zone {
+    opacity: 0.7 !important;
+    animation: glow 2s ease-in-out infinite;
+}
+
+.body-section:hover .body-zone {
+    opacity: 0.7 !important;
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Zone indicators - subtle dashed outlines */
+.zone-indicator {
+    transition: all 0.3s ease;
+    animation: indicatorPulse 5s ease-in-out infinite;
+    opacity: 0.3;
+}
+
+.soul-section:hover .zone-indicator {
+    stroke: rgba(142, 68, 173, 0.8);
+    stroke-width: 2;
+    animation: fastPulse 1s infinite;
+}
+
+.mind-section:hover .zone-indicator {
+    stroke: rgba(41, 128, 185, 0.8);
+    stroke-width: 2;
+    animation: fastPulse 1s infinite;
+}
+
+.body-section:hover .zone-indicator {
+    stroke: rgba(39, 174, 96, 0.8);
+    stroke-width: 2;
+    animation: fastPulse 1s infinite;
+}
+
+/* Indicator pulse animation */
+@keyframes indicatorPulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes fastPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Interaction hint */
+.interaction-hint {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.interaction-hint p {
+    /* Fallback for browsers that don't support background-clip */
+    color: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(45deg, #8e44ad, #2980b9, #27ae60);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.1rem;
+    font-weight: 500;
+    animation: hintFade 3s ease-in-out infinite, gradientShift 4s ease-in-out infinite;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes hintFade {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Subtle pulse animation for discoverability */
+@keyframes subtlePulse {
+    0%, 100% { opacity: 0.08; }
+    50% { opacity: 0.18; }
 }
 
 /* Soul Section (Dot) */
@@ -90,75 +212,17 @@ header {
     transition: all 0.3s ease;
 }
 
-.soul-section:hover .soul-dot {
-    fill: #9b59b6;
-    filter: drop-shadow(0 0 15px #8e44ad);
+/* Glow Animation - Smoother, no flickering */
+@keyframes glow {
+    0% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.05); }
+    100% { opacity: 0.6; transform: scale(1); }
 }
 
-.soul-section:hover .soul-glow {
-    opacity: 0.6 !important;
-    stroke-width: 6;
-    animation: pulse 1.5s infinite;
-}
-
-/* Mind Section (Upper curves) */
-.mind-curve, .mind-small-curve {
-    fill: #2980b9;
-    stroke: #fff;
-    stroke-width: 2;
-    transition: all 0.3s ease;
-}
-
-.mind-glow {
-    fill: none;
-    stroke: #2980b9;
-    stroke-width: 4;
-    transition: all 0.3s ease;
-}
-
-.mind-section:hover .mind-curve,
-.mind-section:hover .mind-small-curve {
-    fill: #3498db;
-    filter: drop-shadow(0 0 15px #2980b9);
-}
-
-.mind-section:hover .mind-glow {
-    opacity: 0.6 !important;
-    stroke-width: 8;
-    animation: pulse 1.5s infinite;
-}
-
-/* Body Section (Lower curve) */
-.body-curve {
-    fill: #27ae60;
-    stroke: #fff;
-    stroke-width: 2;
-    transition: all 0.3s ease;
-}
-
-.body-glow {
-    fill: none;
-    stroke: #27ae60;
-    stroke-width: 4;
-    transition: all 0.3s ease;
-}
-
-.body-section:hover .body-curve {
-    fill: #2ecc71;
-    filter: drop-shadow(0 0 15px #27ae60);
-}
-
-.body-section:hover .body-glow {
-    opacity: 0.6 !important;
-    stroke-width: 8;
-    animation: pulse 1.5s infinite;
-}
-
-/* Pulse Animation */
 @keyframes pulse {
-    0% { stroke-width: 4; opacity: 0.6; }
-    50% { stroke-width: 8; opacity: 0.3; }
-    100% { stroke-width: 4; opacity: 0.6; }
+    0% { stroke-width: 6; opacity: 0.6; }
+    50% { stroke-width: 12; opacity: 0.3; }
+    100% { stroke-width: 6; opacity: 0.6; }
 }
 
 /* Section Cards */
@@ -174,22 +238,74 @@ header {
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
 }
 
 .section-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Om symbols */
+.card-om {
+    font-size: 3rem;
+    font-family: 'Noto Sans Devanagari', 'Arial Unicode MS', serif;
+    text-align: center;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    opacity: 0.3;
+}
+
+/* Color-coded hover effects for cards */
+.soul-card:hover {
+    background: linear-gradient(135deg, #f4f0f7 0%, #e8d5f0 100%);
+    border: 2px solid rgba(142, 68, 173, 0.3);
+}
+
+.soul-card:hover .card-om {
+    color: #8e44ad;
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(142, 68, 173, 0.5);
+    transform: scale(1.1);
+}
+
+.mind-card:hover {
+    background: linear-gradient(135deg, #f0f5f9 0%, #d5e8f7 100%);
+    border: 2px solid rgba(41, 128, 185, 0.3);
+}
+
+.mind-card:hover .card-om {
+    color: #2980b9;
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(41, 128, 185, 0.5);
+    transform: scale(1.1);
+}
+
+.body-card:hover {
+    background: linear-gradient(135deg, #f0f7f4 0%, #d5f0e3 100%);
+    border: 2px solid rgba(39, 174, 96, 0.3);
+}
+
+.body-card:hover .card-om {
+    color: #27ae60;
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(39, 174, 96, 0.5);
+    transform: scale(1.1);
 }
 
 .section-card h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
     color: #2c3e50;
+    font-weight: 600;
 }
 
 .section-card p {
-    color: #7f8c8d;
+    color: #5a6c7d;
     line-height: 1.6;
+    font-weight: 400;
 }
 
 /* Footer */
@@ -199,26 +315,30 @@ footer {
 
 .quote {
     font-style: italic;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.2rem;
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 400;
 }
 
 /* Tooltip */
 .tooltip {
     position: absolute;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.85);
     color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 0.9rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
     pointer-events: none;
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
     white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .tooltip.show {
@@ -233,6 +353,10 @@ footer {
     
     .om-container {
         padding: 20px;
+    }
+    
+    .om-text {
+        font-size: 7rem;
     }
     
     .om-symbol {
@@ -259,6 +383,10 @@ footer {
     
     .om-container {
         padding: 15px;
+    }
+    
+    .om-text {
+        font-size: 5rem;
     }
     
     .section-card {

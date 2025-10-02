@@ -5,7 +5,7 @@
 ## Overview
 
 Byom is an interactive website featuring the sacred Om (ॐ) symbol where different portions represent the three fundamental aspects of human existence:
-
+    
 - **Body** (lower curve) - The physical vessel
 - **Mind** (upper curves) - The conscious awareness  
 - **Soul** (dot above) - The eternal essence
