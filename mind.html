@@ -1,106 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mind - Byom</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="page-styles.css">
+    <title>Meditation Timer</title>
+    <script>
+        let timer;
+        let timeLeft;
+
+        function startTimer(duration) {
+            timeLeft = duration;
+            timer = setInterval(function () {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById('timerDisplay').innerHTML = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+                if (--timeLeft < 0) {
+                    clearInterval(timer);
+                    alert('Time is up!');
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            document.getElementById('timerDisplay').innerHTML = '0:00';
+        }
+
+        function setMeditationTime() {
+            let timeInMinutes = parseInt(document.getElementById('timeInput').value);
+            if (!isNaN(timeInMinutes)) {
+                startTimer(timeInMinutes * 60);
+            }
+        }
+    </script>
 </head>
 <body>
-    <div class="container page-container">
-        <nav class="navigation">
-            <a href="index.html" class="nav-home">🕉️ Byom</a>
-            <div class="nav-links">
-                <a href="body.html" class="nav-link">Body</a>
-                <a href="mind.html" class="nav-link active">Mind</a>
-                <a href="soul.html" class="nav-link">Soul</a>
-            </div>
-        </nav>
-
-        <main class="page-content">
-            <div class="page-header">
-                <div class="page-icon mind-icon">🧠</div>
-                <h1 class="page-title">Mind</h1>
-                <p class="page-subtitle">The Conscious Awareness</p>
-            </div>
-
-            <div class="content-grid">
-                <section class="content-card">
-                    <h2>Understanding the Mind</h2>
-                    <p>The mind is the powerful instrument of consciousness, processing thoughts, emotions, and experiences. It's the bridge between the physical body and the eternal soul.</p>
-                    
-                    <h3>Key Aspects:</h3>
-                    <ul>
-                        <li><strong>Awareness:</strong> Cultivating present-moment consciousness</li>
-                        <li><strong>Emotional Intelligence:</strong> Understanding and managing emotions</li>
-                        <li><strong>Thought Patterns:</strong> Recognizing and transforming limiting beliefs</li>
-                        <li><strong>Clarity:</strong> Developing mental focus and concentration</li>
-                    </ul>
-                </section>
-
-                <section class="content-card">
-                    <h2>Practices for Mind</h2>
-                    <div class="practice-grid">
-                        <div class="practice-item">
-                            <h4>🧘‍♂️ Meditation</h4>
-                            <p>Training the mind to achieve inner peace and heightened awareness.</p>
-                        </div>
-                        <div class="practice-item">
-                            <h4>🙏 Mindfulness</h4>
-                            <p>Practicing present-moment awareness in daily activities and interactions.</p>
-                        </div>
-                        <div class="practice-item">
-                            <h4>📚 Learning</h4>
-                            <p>Continuous growth through study, reflection, and expanding knowledge.</p>
-                        </div>
-                        <div class="practice-item">
-                            <h4>🤔 Contemplation</h4>
-                            <p>Deep reflection on life's meaning and purpose to gain wisdom.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="content-card">
-                    <h2>Wisdom on Mind</h2>
-                    <blockquote>
-                        "The mind is everything. What you think you become."
-                        <cite>- Buddha</cite>
-                    </blockquote>
-                    
-                    <blockquote>
-                        "You have power over your mind - not outside events. Realize this, and you will find strength."
-                        <cite>- Marcus Aurelius</cite>
-                    </blockquote>
-                </section>
-
-                <section class="content-card">
-                    <h2>Mental Cultivation</h2>
-                    <div class="daily-practices">
-                        <div class="practice-time">
-                            <h4>Morning Clarity</h4>
-                            <p>Begin with meditation or quiet reflection to set a positive mental tone.</p>
-                        </div>
-                        <div class="practice-time">
-                            <h4>Mindful Observation</h4>
-                            <p>Practice awareness throughout the day, observing thoughts without judgment.</p>
-                        </div>
-                        <div class="practice-time">
-                            <h4>Evening Reflection</h4>
-                            <p>Review the day's experiences and insights with gratitude and learning.</p>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-
-        <footer class="page-footer">
-            <p>Continue your journey of self-discovery</p>
-            <div class="footer-nav">
-                <a href="body.html" class="footer-link">Explore Body →</a>
-                <a href="soul.html" class="footer-link">Explore Soul →</a>
-            </div>
-        </footer>
-    </div>
+    <h1>Meditation Timer</h1>
+    <input type="number" id="timeInput" placeholder="Enter time in minutes" />
+    <button onclick="setMeditationTime()">Start Timer</button>
+    <button onclick="stopTimer()">Stop Timer</button>
+    <button onclick="resetTimer()">Reset Timer</button>
+    <div id="timerDisplay">0:00</div>
 </body>
 </html>
