@@ -135,4 +135,126 @@ document.addEventListener('DOMContentLoaded', function() {
         keyboardHint.style.marginTop = '15px';
         footer.appendChild(keyboardHint);
     }
+
+    // Meditation Timer functionality
+    const timerMinutes = document.getElementById('timer-minutes');
+    const timerSeconds = document.getElementById('timer-seconds');
+    const startBtn = document.getElementById('timer-start');
+    const resetBtn = document.getElementById('timer-reset');
+    const presetBtns = document.querySelectorAll('.preset-btn');
+    const progressFill = document.getElementById('progress-fill');
+
+    if (timerMinutes && timerSeconds && startBtn && resetBtn) {
+        let totalSeconds = 300; // Default 5 minutes
+        let remainingSeconds = totalSeconds;
+        let timerInterval = null;
+        let isRunning = false;
+
+        // Format time display
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return {
+                minutes: mins.toString().padStart(2, '0'),
+                seconds: secs.toString().padStart(2, '0')
+            };
+        }
+
+        // Update display
+        function updateDisplay() {
+            const time = formatTime(remainingSeconds);
+            timerMinutes.textContent = time.minutes;
+            timerSeconds.textContent = time.seconds;
+            
+            // Update progress bar
+            const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
+            progressFill.style.width = progress + '%';
+        }
+
+        // Start/Pause timer
+        function toggleTimer() {
+            if (isRunning) {
+                // Pause
+                clearInterval(timerInterval);
+                startBtn.textContent = 'Resume';
+                isRunning = false;
+            } else {
+                // Start or Resume
+                startBtn.textContent = 'Pause';
+                isRunning = true;
+                
+                timerInterval = setInterval(() => {
+                    if (remainingSeconds > 0) {
+                        remainingSeconds--;
+                        updateDisplay();
+                    } else {
+                        // Timer completed
+                        clearInterval(timerInterval);
+                        startBtn.textContent = 'Start';
+                        isRunning = false;
+                        
+                        // Visual indication of completion
+                        timerMinutes.style.color = '#27ae60';
+                        timerSeconds.style.color = '#27ae60';
+                        setTimeout(() => {
+                            timerMinutes.style.color = '#2c3e50';
+                            timerSeconds.style.color = '#2c3e50';
+                        }, 2000);
+                        
+                        // Optional: Play notification sound or show alert
+                        if ('Notification' in window && Notification.permission === 'granted') {
+                            new Notification('Meditation Complete', {
+                                body: 'Your meditation session has ended. 🧘',
+                                icon: '🧠'
+                            });
+                        }
+                    }
+                }, 1000);
+            }
+        }
+
+        // Reset timer
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            remainingSeconds = totalSeconds;
+            startBtn.textContent = 'Start';
+            updateDisplay();
+        }
+
+        // Set preset duration
+        function setPreset(duration) {
+            clearInterval(timerInterval);
+            isRunning = false;
+            totalSeconds = duration * 60;
+            remainingSeconds = totalSeconds;
+            startBtn.textContent = 'Start';
+            updateDisplay();
+            
+            // Update active preset button
+            presetBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Event listeners
+        startBtn.addEventListener('click', toggleTimer);
+        resetBtn.addEventListener('click', resetTimer);
+        
+        presetBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const duration = parseInt(e.target.dataset.duration);
+                setPreset(duration);
+            });
+        });
+
+        // Request notification permission on first interaction
+        if ('Notification' in window && Notification.permission === 'default') {
+            startBtn.addEventListener('click', () => {
+                Notification.requestPermission();
+            }, { once: true });
+        }
+
+        // Initialize display
+        updateDisplay();
+    }
 });
