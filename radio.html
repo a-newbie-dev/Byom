@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Byom Radio – Story Stream</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="page-styles.css">
+  <link rel="stylesheet" href="radio-styles.css">
+  <script defer src="radio.js"></script>
+</head>
+<body>
+  <div class="container page-container">
+    <nav class="navigation">
+      <a href="index.html" class="nav-home">🕉️ Byom</a>
+      <div class="nav-links">
+        <a href="body.html" class="nav-link">Body</a>
+        <a href="mind.html" class="nav-link">Mind</a>
+        <a href="soul.html" class="nav-link">Soul</a>
+        <a href="practice.html" class="nav-link">Practice</a>
+        <a href="radio.html" class="nav-link active">Radio</a>
+      </div>
+    </nav>
+    <main class="page-content">
+      <div class="page-header">
+        <div class="page-icon">📻</div>
+        <h1 class="page-title">Byom Radio</h1>
+        <p class="page-subtitle">A never-ending stream of stories, insights, and art—auto-scrolling, always present</p>
+      </div>
+      <form id="topic-form" class="topic-form">
+        <input type="text" id="topic-input" placeholder="What do you want stories about? (e.g. mindfulness, nature, art...)" required>
+        <button type="submit">Start Radio</button>
+      </form>
+      <div id="radio-feed" class="radio-feed"></div>
+      <div class="radio-controls">
+        <button id="pause-btn" title="Pause/Resume">⏸️</button>
+      </div>
+    </main>
+    <footer class="page-footer">
+      <p>Enjoy your journey of discovery with Byom Radio</p>
+      <div class="footer-nav">
+        <a href="index.html" class="footer-link">Back to Home →</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
