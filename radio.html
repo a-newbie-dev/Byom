@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio - Byom</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+    <link rel="stylesheet" href="radio-styles.css">
+</head>
+<body>
+    <div class="container page-container">
+        <nav class="navigation">
+            <a href="index.html" class="nav-home">🕉️ Byom</a>
+            <div class="nav-links">
+                <a href="body.html" class="nav-link">Body</a>
+                <a href="mind.html" class="nav-link">Mind</a>
+                <a href="soul.html" class="nav-link">Soul</a>
+                <a href="practice.html" class="nav-link">Practice</a>
+                <a href="radio.html" class="nav-link active">Radio</a>
+            </div>
+        </nav>
+
+        <main class="page-content">
+            <div class="page-header">
+                <div class="page-icon radio-icon">📻</div>
+                <h1 class="page-title">Radio</h1>
+                <p class="page-subtitle">Harmonious Sounds for Body, Mind & Soul</p>
+            </div>
+
+            <div class="content-grid">
+                <section class="content-card">
+                    <h2>About Radio</h2>
+                    <p>Experience the transformative power of sound through curated audio content that nurtures your Body, Mind, and Soul. Our Radio module offers a peaceful sanctuary of harmonious frequencies.</p>
+                    
+                    <h3>Features:</h3>
+                    <ul>
+                        <li><strong>Meditation Music:</strong> Calming sounds for deep meditation practice</li>
+                        <li><strong>Nature Sounds:</strong> Connect with the natural world through ambient audio</li>
+                        <li><strong>Guided Sessions:</strong> Audio-guided practices for holistic wellness</li>
+                        <li><strong>Healing Frequencies:</strong> Binaural beats and solfeggio frequencies</li>
+                    </ul>
+                </section>
+
+                <section class="content-card radio-player-card">
+                    <h2>Radio Player</h2>
+                    <div class="radio-player">
+                        <div class="player-display">
+                            <div class="now-playing">
+                                <p class="station-name">Meditation Radio</p>
+                                <p class="track-info">Peaceful Ambient Sounds</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-controls">
+                            <button class="control-btn" id="prev-btn" aria-label="Previous">⏮️</button>
+                            <button class="control-btn play-pause-btn" id="play-btn" aria-label="Play">▶️</button>
+                            <button class="control-btn" id="next-btn" aria-label="Next">⏭️</button>
+                        </div>
+
+                        <div class="volume-control">
+                            <span class="volume-icon">🔊</span>
+                            <input type="range" id="volume-slider" min="0" max="100" value="70" class="slider">
+                            <span class="volume-value">70%</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-card">
+                    <h2>Radio Stations</h2>
+                    <div class="stations-grid">
+                        <div class="station-card" data-category="body">
+                            <div class="station-icon">🏃‍♂️</div>
+                            <h4>Body Energy</h4>
+                            <p class="station-category">Body</p>
+                            <p class="station-description">Energizing rhythms to motivate physical activity and movement.</p>
+                            <button class="station-btn" data-station="body-energy">Listen</button>
+                        </div>
+
+                        <div class="station-card" data-category="mind">
+                            <div class="station-icon">🧠</div>
+                            <h4>Mind Focus</h4>
+                            <p class="station-category">Mind</p>
+                            <p class="station-description">Concentration-enhancing sounds for mental clarity and focus.</p>
+                            <button class="station-btn" data-station="mind-focus">Listen</button>
+                        </div>
+
+                        <div class="station-card" data-category="soul">
+                            <div class="station-icon">✨</div>
+                            <h4>Soul Harmony</h4>
+                            <p class="station-category">Soul</p>
+                            <p class="station-description">Spiritual frequencies for deep connection and inner peace.</p>
+                            <button class="station-btn" data-station="soul-harmony">Listen</button>
+                        </div>
+
+                        <div class="station-card" data-category="all">
+                            <div class="station-icon">🌟</div>
+                            <h4>Holistic Balance</h4>
+                            <p class="station-category">Balanced</p>
+                            <p class="station-description">Integrated sounds harmonizing Body, Mind, and Soul together.</p>
+                            <button class="station-btn" data-station="holistic">Listen</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-card">
+                    <h2>Sound Healing</h2>
+                    <blockquote>
+                        "Music is the mediator between the spiritual and the sensual life."
+                        <cite>- Ludwig van Beethoven</cite>
+                    </blockquote>
+                    
+                    <blockquote>
+                        "Where words fail, music speaks."
+                        <cite>- Hans Christian Andersen</cite>
+                    </blockquote>
+                </section>
+            </div>
+        </main>
+
+        <footer class="page-footer">
+            <p>Continue your journey of self-discovery</p>
+            <div class="footer-nav">
+                <a href="body.html" class="footer-link">Explore Body →</a>
+                <a href="mind.html" class="footer-link">Explore Mind →</a>
+                <a href="soul.html" class="footer-link">Explore Soul →</a>
+            </div>
+        </footer>
+    </div>
+    <script src="radio.js"></script>
+</body>
+</html>
