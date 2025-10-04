@@ -295,6 +295,17 @@ header {
     transform: scale(1.1);
 }
 
+.practice-card:hover {
+    background: linear-gradient(135deg, #fffaf0 0%, #ffeaa7 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.practice-card:hover .card-om {
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    transform: scale(1.1);
+}
+
 .section-card h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
