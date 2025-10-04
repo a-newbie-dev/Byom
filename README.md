@@ -52,6 +52,61 @@ Byom is a place where we share knowledge and wisdom in a simple way. This is for
 2. Open `index.html` in your web browser
 3. Click on different parts of the Om symbol to explore
 
+## Running Tests
+
+This project includes comprehensive unit tests to ensure all features work correctly.
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm (comes with Node.js)
+
+### Installation
+
+Install the testing dependencies:
+
+```bash
+npm install
+```
+
+### Running Tests
+
+To run all tests once:
+
+```bash
+npm test
+```
+
+To run tests in watch mode (automatically re-runs tests when files change):
+
+```bash
+npm run test:watch
+```
+
+To generate a code coverage report:
+
+```bash
+npm run test:coverage
+```
+
+The coverage report will be generated in the `coverage/` directory. Open `coverage/index.html` in your browser to see detailed coverage information.
+
+### Test Suite
+
+The test suite includes:
+
+- **DOM Element Tests**: Verify all required HTML elements are present and correctly structured
+- **Navigation Tests**: Test click-based navigation to Body, Mind, and Soul pages
+- **Tooltip Tests**: Verify tooltip functionality including show, hide, and positioning
+- **Style Change Tests**: Test Om text color and shadow changes on hover
+- **Keyboard Navigation Tests**: Verify keyboard shortcuts (1, 2, 3) work correctly
+- **Animation Tests**: Test initialization of Om symbol and section card animations
+- **HTML Structure Tests**: Validate proper HTML structure across all pages
+- **Accessibility Tests**: Ensure proper heading hierarchy and interactive attributes
+- **Edge Cases**: Handle missing elements gracefully
+
+All tests use Jest with jsdom for DOM testing, ensuring high-quality code and preventing regressions.
+
 ## Project Structure
 
 ```
@@ -62,6 +117,11 @@ Byom is a place where we share knowledge and wisdom in a simple way. This is for
 ├── styles.css          # Main stylesheet
 ├── page-styles.css     # Individual page styles
 ├── script.js           # Interactive functionality
+├── tests/              # Test directory
+│   ├── setup.js        # Test configuration and setup
+│   ├── script.test.js  # Unit tests for interactive functionality
+│   └── html-structure.test.js  # Tests for HTML structure validation
+├── package.json        # Node.js dependencies and scripts
 └── README.md           # This file
 ```
 
