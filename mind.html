@@ -74,6 +74,37 @@
                     </blockquote>
                 </section>
 
+                <section class="content-card meditation-timer-card">
+                    <h2>🧘 Meditation Timer</h2>
+                    <p>Use this timer to guide your meditation practice.</p>
+                    
+                    <div class="timer-container">
+                        <div class="timer-display">
+                            <span id="timer-minutes">05</span>
+                            <span class="timer-separator">:</span>
+                            <span id="timer-seconds">00</span>
+                        </div>
+                        
+                        <div class="timer-presets">
+                            <button class="preset-btn active" data-duration="5">5 min</button>
+                            <button class="preset-btn" data-duration="10">10 min</button>
+                            <button class="preset-btn" data-duration="15">15 min</button>
+                            <button class="preset-btn" data-duration="20">20 min</button>
+                        </div>
+                        
+                        <div class="timer-controls">
+                            <button id="timer-start" class="timer-btn primary-btn">Start</button>
+                            <button id="timer-reset" class="timer-btn secondary-btn">Reset</button>
+                        </div>
+                        
+                        <div class="timer-progress">
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <section class="content-card">
                     <h2>Mental Cultivation</h2>
                     <div class="daily-practices">
@@ -102,5 +133,6 @@
             </div>
         </footer>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

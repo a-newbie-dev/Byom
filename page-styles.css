@@ -292,6 +292,133 @@ cite {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Meditation Timer */
+.meditation-timer-card {
+    grid-column: 1 / -1;
+}
+
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.timer-display {
+    font-size: 4rem;
+    font-weight: 300;
+    color: #2c3e50;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.1em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timer-separator {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0.3; }
+}
+
+.timer-presets {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.preset-btn {
+    padding: 12px 24px;
+    border: 2px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.preset-btn:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.preset-btn.active {
+    background: #3498db;
+    color: white;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 20px;
+}
+
+.timer-btn {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.primary-btn:active {
+    transform: translateY(0);
+}
+
+.secondary-btn {
+    background: white;
+    color: #7f8c8d;
+    border: 2px solid #bdc3c7;
+}
+
+.secondary-btn:hover {
+    background: #ecf0f1;
+    border-color: #95a5a6;
+    transform: translateY(-2px);
+}
+
+.timer-progress {
+    width: 100%;
+    max-width: 400px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #ecf0f1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .navigation {
@@ -343,5 +470,19 @@ cite {
     .practice-item,
     .practice-time {
         padding: 15px;
+    }
+    
+    .timer-display {
+        font-size: 3rem;
+    }
+    
+    .timer-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    .preset-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
     }
 }
