@@ -1,0 +1,481 @@
+/* Words Page Specific Styles */
+
+.words-icon {
+    filter: drop-shadow(0 4px 8px rgba(142, 68, 173, 0.3));
+}
+
+.search-section {
+    margin-bottom: 3rem;
+}
+
+.search-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+}
+
+.search-input:focus {
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 5px 30px rgba(142, 68, 173, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.search-input::placeholder {
+    color: #666;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #8E44AD;
+    pointer-events: none;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.filter-btn {
+    padding: 12px 25px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #2c3e50;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Category-specific hover states */
+.filter-btn[data-category="body"]:hover:not(.active) {
+    border-color: rgba(74, 222, 128, 0.5);
+    box-shadow: 0 8px 20px rgba(74, 222, 128, 0.2);
+}
+
+.filter-btn[data-category="mind"]:hover:not(.active) {
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+}
+
+.filter-btn[data-category="soul"]:hover:not(.active) {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+/* "All Words" button gets a mixed gradient representing Body, Mind, and Soul */
+.filter-btn[data-category="all"].active {
+    background: linear-gradient(135deg, #4ade80 0%, #3b82f6 50%, #8b5cf6 100%);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Category-specific active states to match README design system */
+.filter-btn[data-category="body"].active {
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    box-shadow: 0 8px 25px rgba(74, 222, 128, 0.4);
+}
+
+.filter-btn[data-category="mind"].active {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.filter-btn[data-category="soul"].active {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+.words-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 3rem;
+    padding: 0;
+}
+
+.word-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    height: fit-content;
+    backdrop-filter: blur(10px);
+}
+
+.word-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.word-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.word-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #2c3e50;
+    background: linear-gradient(135deg, #4ade80 0%, #3b82f6 50%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.word-categories {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.word-tag {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.word-tag.body {
+    background: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.word-tag.mind {
+    background: rgba(52, 152, 219, 0.2);
+    color: #2980b9;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.word-tag.soul {
+    background: rgba(142, 68, 173, 0.2);
+    color: #8e44ad;
+    border: 1px solid rgba(142, 68, 173, 0.3);
+}
+
+.word-content {
+    line-height: 1.6;
+}
+
+.word-definition {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(142, 68, 173, 0.08), rgba(52, 152, 219, 0.08));
+    border-radius: 15px;
+    border-left: 4px solid #8E44AD;
+    line-height: 1.6;
+}
+
+.word-example,
+.word-spiritual {
+    margin-bottom: 1.5rem;
+}
+
+.word-example h4,
+.word-spiritual h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.word-example h4::before {
+    content: "💡";
+    font-size: 1.3rem;
+}
+
+.word-spiritual h4::before {
+    content: "🕉️";
+    font-size: 1.3rem;
+}
+
+.word-example p,
+.word-spiritual p {
+    color: #555;
+    font-size: 1rem;
+    margin: 0;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(248, 249, 250, 0.9));
+    border-radius: 12px;
+    border-left: 3px solid #3498DB;
+    line-height: 1.7;
+    backdrop-filter: blur(5px);
+}
+
+.word-spiritual p {
+    border-left-color: #8E44AD;
+}
+
+.add-word-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 3rem;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.add-word-section h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.add-word-section p {
+    color: #7f8c8d;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.suggestion-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.suggestion-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.suggestion-input:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.suggest-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #4ade80 0%, #3b82f6 50%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 150px;
+    box-shadow: 0 8px 25px rgba(142, 68, 173, 0.3);
+}
+
+.suggest-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(142, 68, 173, 0.4);
+}
+
+/* Hidden state for filtering */
+.word-card.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .words-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 0;
+    }
+    
+    .word-card {
+        padding: 25px;
+        margin: 0 15px;
+    }
+    
+    .word-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .suggestion-form {
+        flex-direction: column;
+        max-width: none;
+        gap: 15px;
+        margin: 0 15px;
+    }
+    
+    .suggestion-input {
+        min-width: unset;
+    }
+    
+    .filter-buttons {
+        gap: 10px;
+        padding: 0 15px;
+    }
+    
+    .filter-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .search-container {
+        margin: 0 15px 2rem;
+        max-width: unset;
+    }
+    
+    .add-word-section {
+        margin: 0 15px 3rem;
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .word-title {
+        font-size: 1.4rem;
+    }
+    
+    .word-definition {
+        font-size: 1rem;
+        padding: 15px;
+    }
+    
+    .search-input {
+        padding: 12px 45px 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .add-word-section {
+        padding: 25px 15px;
+    }
+    
+    .words-grid {
+        margin: 0;
+    }
+    
+    .word-card {
+        margin: 0 10px;
+        padding: 20px;
+    }
+    
+    .filter-buttons {
+        padding: 0 10px;
+    }
+    
+    .search-container {
+        margin: 0 10px 2rem;
+    }
+    
+    .add-word-section {
+        margin: 0 10px 3rem;
+    }
+}
+
+/* Word count display */
+.word-count-display {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Hidden state for filtering */
+.word-card.hidden {
+    display: none;
+}
+
+/* Animation for new word suggestions */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.word-card.new-suggestion {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Loading state */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.loading::before {
+    content: "🔄";
+    font-size: 1.5rem;
+    margin-right: 10px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

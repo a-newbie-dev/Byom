@@ -1,5 +1,31 @@
 /* Page-specific styles for Body, Mind, Soul pages */
 
+/* Universal button reset to prevent browser default styling */
+button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none;
+    border: none;
+    border-style: none;
+    border-width: 0;
+    border-color: transparent;
+    outline: none;
+    outline-style: none;
+    outline-width: 0;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: inherit;
+    vertical-align: baseline;
+    box-shadow: none;
+    background-image: none;
+    background-color: transparent;
+}
+
 .page-container {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
@@ -422,30 +448,35 @@ cite {
 /* Responsive Design */
 @media (max-width: 768px) {
     .navigation {
-        padding: 15px 20px;
         flex-direction: column;
         gap: 20px;
+        padding: 20px;
     }
     
     .nav-links {
         gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
     
     .page-content {
-        padding: 20px;
-    }
-    
-    .page-title {
-        font-size: 2.5rem;
+        padding: 30px 20px;
     }
     
     .content-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
     }
     
     .practice-grid,
     .daily-practices {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
     
     .footer-nav {
@@ -455,6 +486,19 @@ cite {
 }
 
 @media (max-width: 480px) {
+    .navigation {
+        padding: 15px;
+    }
+    
+    .nav-links {
+        gap: 10px;
+    }
+    
+    .nav-link {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+    
     .page-title {
         font-size: 2rem;
     }
