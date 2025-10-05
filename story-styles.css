@@ -1,0 +1,190 @@
+/* Story page specific styles */
+
+.story-icon {
+    filter: drop-shadow(0 4px 8px rgba(255, 193, 7, 0.3));
+}
+
+/* Filter Section */
+.filter-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 12px 30px;
+    border: 2px solid #ddd;
+    background: white;
+    color: #2c3e50;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+}
+
+.filter-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+}
+
+/* Stories Grid */
+.stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.story-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.story-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+    text-align: center;
+}
+
+.story-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.story-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.story-tag {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.story-text {
+    color: #555;
+    line-height: 1.8;
+    font-size: 1rem;
+    text-align: left;
+    font-style: italic;
+}
+
+/* Animation classes */
+.story-card.fade-in {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.story-card.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stories-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-btn {
+        width: 100%;
+    }
+    
+    .filter-section {
+        padding: 20px;
+    }
+    
+    .filter-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .story-card {
+        padding: 20px;
+    }
+    
+    .story-icon {
+        font-size: 2.5rem;
+    }
+    
+    .story-title {
+        font-size: 1.3rem;
+    }
+    
+    .story-text {
+        font-size: 0.95rem;
+    }
+}
