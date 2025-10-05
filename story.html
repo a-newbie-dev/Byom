@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Byom – Story Module</title>
+  <link rel="stylesheet" href="story-styles.css">
+  <script defer src="story.js"></script>
+</head>
+<body>
+  <div class="story-container">
+    <div id="story-content" class="story-fade">
+      <!-- Story will be rendered here -->
+    </div>
+    <div class="story-nav">
+      <button id="prev-story" title="Previous Story">← Prev</button>
+      <button id="next-story" title="Next Story">Next →</button>
+    </div>
+    <div class="tag-filter-row">
+      <span>Active Tags:</span>
+      <div id="active-tags"></div>
+      <button id="clear-tags" title="Clear selected tags">Clear Tags</button>
+    </div>
+  </div>
+</body>
+</html>
