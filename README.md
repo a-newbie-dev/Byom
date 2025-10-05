@@ -438,5 +438,5 @@ Open source - feel free to use and adapt for spreading positivity and wisdom. Pl
 
 ### 🕉️ *"Understanding the harmony between Body, Mind, and Soul leads to true wisdom"*
 
-**Live Demo:** [Byom Interactive Om Symbol](https://byom.co.in/)
+**Live Demo:** [Byom](https://byom.co.in/)  
 **Repository:** [GitHub - Byom](https://github.com/a-newbie-dev/Byom)
