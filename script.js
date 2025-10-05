@@ -13,12 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Tooltip functionality
-    function showTooltip(event, text) {
-        tooltip.textContent = text;
-        tooltip.style.left = event.pageX + 10 + 'px';
-        tooltip.style.top = event.pageY - 30 + 'px';
-        tooltip.classList.add('show');
-    }
+function showTooltip(event, text) {
+  tooltip.textContent = text;
+  // use client coords since tooltip is position: fixed
+  const x = event.clientX + 10;
+  const y = event.clientY - 30;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+  tooltip.classList.add('show');
+}
+
 
     function hideTooltip() {
         tooltip.classList.remove('show');
@@ -258,3 +262,45 @@ document.addEventListener('DOMContentLoaded', function() {
         updateDisplay();
     }
 });
+
+const toggleBtn = document.getElementById('theme-toggle');
+const mainCSS = document.getElementById('theme-link-main');
+const pageCSS = document.getElementById('theme-link-page'); // can be null
+
+// function to apply theme
+function applyTheme(theme) {
+    // main CSS
+    if (mainCSS) {
+        mainCSS.href = theme === 'dark' ? 'darkstyles.css' : 'styles.css';
+    }
+
+    // page CSS
+    if (pageCSS) {
+        if (pageCSS.href) { // only if page CSS exists
+            pageCSS.href = theme === 'dark' ? 'dark-ps.css' : 'page-styles.css';
+        }
+    }
+
+    // button icon
+    toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+
+    // save to localStorage
+    localStorage.setItem('theme', theme);
+}
+
+// toggle on click
+toggleBtn.addEventListener('click', () => {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+});
+
+// on load, apply saved theme
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+});
+
+
+
+

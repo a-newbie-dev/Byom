@@ -454,3 +454,23 @@ footer {
         padding: 15px;
     }
 }
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: rgba(255,255,255,0.35);
+    transform: scale(1.1);
+}
