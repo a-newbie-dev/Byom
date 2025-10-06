@@ -1,31 +1,5 @@
 /* Page-specific styles for Body, Mind, Soul pages */
 
-/* Universal button reset to prevent browser default styling */
-button {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: none;
-    border: none;
-    border-style: none;
-    border-width: 0;
-    border-color: transparent;
-    outline: none;
-    outline-style: none;
-    outline-width: 0;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: inherit;
-    vertical-align: baseline;
-    box-shadow: none;
-    background-image: none;
-    background-color: transparent;
-}
-
 .page-container {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;

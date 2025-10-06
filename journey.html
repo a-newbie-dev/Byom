@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Journey - Byom</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+    <link rel="stylesheet" href="journey-styles.css">
+</head>
+<body>
+    <div class="container page-container">
+        <nav class="navigation">
+            <a href="index.html" class="nav-home">🕉️ Byom</a>
+            <div class="nav-links">
+                <a href="body.html" class="nav-link">Body</a>
+                <a href="mind.html" class="nav-link">Mind</a>
+                <a href="soul.html" class="nav-link">Soul</a>
+                <a href="practice.html" class="nav-link">Practice</a>
+                <a href="story.html" class="nav-link">Stories</a>
+                <a href="radio.html" class="nav-link">Radio</a>
+                <a href="words.html" class="nav-link">Words</a>
+                <a href="journey.html" class="nav-link active">Journey</a>
+            </div>
+        </nav>
+
+        <main class="page-content">
+            <div class="page-header">
+                <div class="page-icon journey-icon">🚀</div>
+                <h1 class="page-title">Your Journey</h1>
+                <p class="page-subtitle">Track your spiritual growth and mindful progress</p>
+            </div>
+
+        <div class="content-grid">
+            <!-- Journey Progress Card -->
+            <div class="content-card journey-progress-card">
+                <div class="card-header">
+                    <h2 class="card-title">🌟 Journey Progress</h2>
+                    <p class="card-subtitle">Your spiritual growth across all dimensions</p>
+                </div>
+                
+                <div class="progress-grid">
+                    <div class="progress-item" data-category="body">
+                        <div class="progress-ring">
+                            <svg class="progress-svg" width="100" height="100">
+                                <circle class="progress-track" cx="50" cy="50" r="40"></circle>
+                                <circle class="progress-bar" cx="50" cy="50" r="40" data-progress="65"></circle>
+                            </svg>
+                            <div class="progress-content">
+                                <span class="progress-value">65%</span>
+                                <span class="progress-label">Body</span>
+                            </div>
+                        </div>
+                        <div class="progress-description">Physical wellness & awareness</div>
+                    </div>
+                    
+                    <div class="progress-item" data-category="mind">
+                        <div class="progress-ring">
+                            <svg class="progress-svg" width="100" height="100">
+                                <circle class="progress-track" cx="50" cy="50" r="40"></circle>
+                                <circle class="progress-bar" cx="50" cy="50" r="40" data-progress="40"></circle>
+                            </svg>
+                            <div class="progress-content">
+                                <span class="progress-value">40%</span>
+                                <span class="progress-label">Mind</span>
+                            </div>
+                        </div>
+                        <div class="progress-description">Mental clarity & focus</div>
+                    </div>
+                    
+                    <div class="progress-item" data-category="soul">
+                        <div class="progress-ring">
+                            <svg class="progress-svg" width="100" height="100">
+                                <circle class="progress-track" cx="50" cy="50" r="40"></circle>
+                                <circle class="progress-bar" cx="50" cy="50" r="40" data-progress="80"></circle>
+                            </svg>
+                            <div class="progress-content">
+                                <span class="progress-value">80%</span>
+                                <span class="progress-label">Soul</span>
+                            </div>
+                        </div>
+                        <div class="progress-description">Spiritual connection & growth</div>
+                    </div>
+                </div>
+                
+                <div class="overall-summary">
+                    <div class="summary-header">
+                        <h3 class="summary-title">Overall Journey</h3>
+                        <span class="overall-percentage">62%</span>
+                    </div>
+                    <div class="overall-progress-bar">
+                        <div class="overall-fill" data-width="62"></div>
+                    </div>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="days-practiced">23</span>
+                            <span class="stat-label">Days</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="current-streak">5</span>
+                            <span class="stat-label">Streak</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="total-minutes">450</span>
+                            <span class="stat-label">Minutes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey Timeline -->
+            <div class="content-card">
+                <h2>Your Spiritual Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item completed body-item">
+                        <div class="timeline-marker body-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Physical Awareness</h3>
+                            <p>Started focusing on breath and body sensations</p>
+                            <small>Completed 2 weeks ago</small>
+                        </div>
+                    </div>
+                    <div class="timeline-item completed mind-item">
+                        <div class="timeline-marker mind-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Mental Clarity</h3>
+                            <p>Developed concentration and mindfulness practices</p>
+                            <small>Completed 1 week ago</small>
+                        </div>
+                    </div>
+                    <div class="timeline-item active soul-item">
+                        <div class="timeline-marker soul-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Soul Connection</h3>
+                            <p>Currently exploring deeper spiritual practices</p>
+                            <small>In progress</small>
+                        </div>
+                    </div>
+                    <div class="timeline-item upcoming integration-item">
+                        <div class="timeline-marker integration-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Integration</h3>
+                            <p>Bringing all practices together for holistic growth</p>
+                            <small>Coming soon</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey Statistics -->
+            <div class="content-card">
+                <h2>Your Progress Stats</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-number" id="days-practiced">23</div>
+                        <div class="stat-label">Days Practiced</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-number" id="total-minutes">450</div>
+                        <div class="stat-label">Total Minutes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-number" id="achievements-earned">7</div>
+                        <div class="stat-label">Achievements</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-number" id="current-streak">5</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="content-card">
+                <h2>Achievements Unlocked</h2>
+                <div class="achievements-grid">
+                    <div class="achievement earned">
+                        <div class="achievement-icon">🌱</div>
+                        <h3>First Steps</h3>
+                        <p>Started your spiritual journey</p>
+                    </div>
+                    <div class="achievement earned">
+                        <div class="achievement-icon">💪</div>
+                        <h3>Body Awareness</h3>
+                        <p>Completed 10 body practices</p>
+                    </div>
+                    <div class="achievement earned">
+                        <div class="achievement-icon">🧠</div>
+                        <h3>Mindful Moments</h3>
+                        <p>Practiced mindfulness for 5 days</p>
+                    </div>
+                    <div class="achievement earned">
+                        <div class="achievement-icon">✨</div>
+                        <h3>Soul Seeker</h3>
+                        <p>Explored spiritual practices</p>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon">🔥</div>
+                        <h3>Dedication</h3>
+                        <p>Practice for 30 consecutive days</p>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon">🏆</div>
+                        <h3>Master</h3>
+                        <p>Complete all three paths</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Reflection -->
+            <div class="content-card">
+                <h2>Today's Reflection</h2>
+                <div class="reflection-container">
+                    <div class="mood-tracker">
+                        <h3>How are you feeling?</h3>
+                        <div class="mood-options">
+                            <button class="mood-btn" data-mood="excited">🤩</button>
+                            <button class="mood-btn" data-mood="happy">😊</button>
+                            <button class="mood-btn" data-mood="calm">😌</button>
+                            <button class="mood-btn" data-mood="neutral">😐</button>
+                            <button class="mood-btn" data-mood="tired">😴</button>
+                        </div>
+                    </div>
+                    <div class="reflection-input">
+                        <label for="daily-reflection">Share your thoughts:</label>
+                        <textarea 
+                            id="daily-reflection" 
+                            placeholder="What did you learn today? What are you grateful for?"
+                            rows="4"
+                        ></textarea>
+                        <button id="save-reflection" class="save-btn">Save Reflection</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="content-card">
+                <h2>Quick Actions</h2>
+                <div class="actions-grid">
+                    <a href="body.html" class="action-btn body-action">
+                        <div class="action-icon">💪</div>
+                        <div class="action-text">Body Practice</div>
+                    </a>
+                    <a href="mind.html" class="action-btn mind-action">
+                        <div class="action-icon">🧠</div>
+                        <div class="action-text">Mind Training</div>
+                    </a>
+                    <a href="soul.html" class="action-btn soul-action">
+                        <div class="action-icon">✨</div>
+                        <div class="action-text">Soul Connection</div>
+                    </a>
+                    <a href="practice.html" class="action-btn practice-action">
+                        <div class="action-icon">🧘</div>
+                        <div class="action-text">Guided Practice</div>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <div class="page-footer">
+            <p>© 2025 Byom. Journey through Body, Mind & Soul.</p>
+        </div>
+    </div>
+
+    <script src="journey-progress.js"></script>
+</body>
+</html>
