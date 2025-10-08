@@ -17,7 +17,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1500px;
     padding: 20px;
     text-align: center;
 }
@@ -364,6 +364,17 @@ header {
 .journey-card:hover .card-om {
     opacity: 1;
     text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    transform: scale(1.1);
+}
+
+.happiness-card:hover {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid rgba(245, 158, 11, 0.3);
+}
+
+.happiness-card:hover .card-om {
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
     transform: scale(1.1);
 }
 

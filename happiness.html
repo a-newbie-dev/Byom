@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cultivate joy, track gratitude, and spread positivity with Byom's Happiness Hub. Interactive mood tracking, gratitude journal, and happiness activities.">
+    <meta name="keywords" content="happiness, wellbeing, mood tracker, gratitude, mental health, positivity, Byom">
+    <meta name="author" content="Byom">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Happiness Hub - Byom">
+    <meta property="og:description" content="Cultivate joy, track gratitude, and spread positivity with interactive happiness tools.">
+    <meta property="og:url" content="https://byom.example/happiness.html">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Happiness Hub - Byom">
+    <meta name="twitter:description" content="Cultivate joy, track gratitude, and spread positivity with interactive happiness tools.">
+    
+    <title>Happiness - Byom</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+    <link rel="stylesheet" href="happiness-styles.css">
+</head>
+<body>
+    <div class="container page-container">
+        <nav class="navigation">
+            <a href="index.html" class="nav-home">🕉️ Byom</a>
+            <div class="nav-links">
+                <a href="body.html" class="nav-link">Body</a>
+                <a href="mind.html" class="nav-link">Mind</a>
+                <a href="soul.html" class="nav-link">Soul</a>
+                <a href="practice.html" class="nav-link">Practice</a>
+                <a href="story.html" class="nav-link">Stories</a>
+                <a href="radio.html" class="nav-link">Radio</a>
+                <a href="words.html" class="nav-link">Words</a>
+                <a href="journey.html" class="nav-link">Journey</a>
+                <a href="happiness.html" class="nav-link active">Happiness</a>
+            </div>
+        </nav>
+
+        <main class="page-content">
+            <div class="page-header">
+                <div class="page-icon happiness-icon">😊</div>
+                <h1 class="page-title">Happiness Hub</h1>
+                <p class="page-subtitle">Cultivate joy, track gratitude, and spread positivity</p>
+            </div>
+
+            <div class="content-grid">
+                <!-- Daily Mood Tracker -->
+                <div class="content-card mood-tracker-card">
+                    <div class="card-header">
+                        <h2 class="card-title">🌈 Today's Mood</h2>
+                        <span class="mood-streak">7 day streak!</span>
+                    </div>
+                    
+                    <div class="mood-selector">
+                        <div class="mood-options">
+                            <button class="mood-btn" data-mood="amazing" aria-label="Amazing">🤩</button>
+                            <button class="mood-btn" data-mood="happy" aria-label="Happy">😊</button>
+                            <button class="mood-btn" data-mood="good" aria-label="Good">🙂</button>
+                            <button class="mood-btn" data-mood="okay" aria-label="Okay">😐</button>
+                            <button class="mood-btn" data-mood="sad" aria-label="Sad">😔</button>
+                        </div>
+                        
+                        <div class="mood-description">
+                            <label for="mood-note" class="sr-only">Describe how you're feeling</label>
+                            <input type="text" id="mood-note" placeholder="How are you feeling today?" class="mood-input">
+                            <button class="save-mood-btn">Save Mood</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mood-chart">
+                        <h3>This Week's Journey</h3>
+                        <div class="mood-week">
+                            <div class="mood-day">
+                                <span class="day-label">Mon</span>
+                                <div class="mood-bar" data-mood="happy" style="height: 80%"></div>
+                            </div>
+                            <div class="mood-day">
+                                <span class="day-label">Tue</span>
+                                <div class="mood-bar" data-mood="amazing" style="height: 100%"></div>
+                            </div>
+                            <div class="mood-day">
+                                <span class="day-label">Wed</span>
+                                <div class="mood-bar" data-mood="good" style="height: 60%"></div>
+                            </div>
+                            <div class="mood-day">
+                                <span class="day-label">Thu</span>
+                                <div class="mood-bar" data-mood="happy" style="height: 80%"></div>
+                            </div>
+                            <div class="mood-day">
+                                <span class="day-label">Fri</span>
+                                <div class="mood-bar" data-mood="amazing" style="height: 100%"></div>
+                            </div>
+                            <div class="mood-day">
+                                <span class="day-label">Sat</span>
+                                <div class="mood-bar" data-mood="happy" style="height: 80%"></div>
+                            </div>
+                            <div class="mood-day active">
+                                <span class="day-label">Sun</span>
+                                <div class="mood-bar" data-mood="today" style="height: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gratitude Journal -->
+                <div class="content-card gratitude-card">
+                    <div class="card-header">
+                        <h2 class="card-title">🙏 Gratitude Journal</h2>
+                        <span class="gratitude-count">124 entries</span>
+                    </div>
+                    
+                    <div class="gratitude-input-section">
+                        <label for="gratitude-entry" class="sr-only">Share what you're grateful for</label>
+                        <textarea id="gratitude-entry" placeholder="What are you grateful for today?" rows="3"></textarea>
+                        <button class="add-gratitude-btn">Add Gratitude</button>
+                    </div>
+                    
+                    <div class="gratitude-entries">
+                        <h3>Recent Gratitudes</h3>
+                        <div class="gratitude-list">
+                            <div class="gratitude-item">
+                                <div class="gratitude-text">Grateful for the beautiful sunrise this morning and the peaceful start to my day.</div>
+                                <div class="gratitude-meta">Today, 8:30 AM</div>
+                            </div>
+                            <div class="gratitude-item">
+                                <div class="gratitude-text">Thankful for my family's health and the wonderful dinner we shared together.</div>
+                                <div class="gratitude-meta">Yesterday, 7:15 PM</div>
+                            </div>
+                            <div class="gratitude-item">
+                                <div class="gratitude-text">Appreciating the kind words from a colleague that brightened my entire week.</div>
+                                <div class="gratitude-meta">2 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Affirmation -->
+                <div class="content-card affirmation-card">
+                    <div class="card-header">
+                        <h2 class="card-title">✨ Daily Affirmation</h2>
+                        <button class="refresh-affirmation">🔄</button>
+                    </div>
+                    
+                    <div class="affirmation-display">
+                        <div class="affirmation-text">
+                            "I am worthy of love, happiness, and all the beautiful experiences life has to offer."
+                        </div>
+                        <div class="affirmation-actions">
+                            <button class="favorite-affirmation">❤️ Save</button>
+                            <button class="share-affirmation">📤 Share</button>
+                        </div>
+                    </div>
+                    
+                    <div class="affirmation-categories">
+                        <button class="category-btn active" data-category="self-love">Self Love</button>
+                        <button class="category-btn" data-category="confidence">Confidence</button>
+                        <button class="category-btn" data-category="success">Success</button>
+                        <button class="category-btn" data-category="peace">Peace</button>
+                    </div>
+                </div>
+
+                <!-- Smile Counter -->
+                <div class="content-card smile-counter-card">
+                    <div class="card-header">
+                        <h2 class="card-title">😄 Smile Counter</h2>
+                        <div class="smile-streak">12 days of smiles!</div>
+                    </div>
+                    
+                    <div class="smile-stats">
+                        <div class="smile-today">
+                            <div class="smile-number">27</div>
+                            <div class="smile-label">Smiles Today</div>
+                        </div>
+                        
+                        <div class="smile-controls">
+                            <button class="smile-btn" id="add-smile">
+                                <span class="smile-emoji">😊</span>
+                                <span class="smile-text">Add Smile</span>
+                            </button>
+                            <button class="laugh-btn" id="add-laugh">
+                                <span class="laugh-emoji">😂</span>
+                                <span class="laugh-text">Add Laugh</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="smile-chart">
+                        <h3>Weekly Progress</h3>
+                        <div class="smile-bars">
+                            <div class="smile-bar-item">
+                                <div class="smile-bar" style="height: 60%"></div>
+                                <span class="bar-label">M</span>
+                            </div>
+                            <div class="smile-bar-item">
+                                <div class="smile-bar" style="height: 80%"></div>
+                                <span class="bar-label">T</span>
+                            </div>
+                            <div class="smile-bar-item">
+                                <div class="smile-bar" style="height: 45%"></div>
+                                <span class="bar-label">W</span>
+                            </div>
+                            <div class="smile-bar-item">
+                                <div class="smile-bar" style="height: 90%"></div>
+                                <span class="bar-label">T</span>
+                            </div>
+                            <div class="smile-bar-item">
+                                <div class="smile-bar" style="height: 100%"></div>
+                                <span class="bar-label">F</span>
+                            </div>
+                            <div class="smile-bar-item">
+                                <div class="smile-bar" style="height: 70%"></div>
+                                <span class="bar-label">S</span>
+                            </div>
+                            <div class="smile-bar-item active">
+                                <div class="smile-bar" style="height: 85%"></div>
+                                <span class="bar-label">S</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acts of Kindness -->
+                <div class="content-card kindness-card">
+                    <div class="card-header">
+                        <h2 class="card-title">💝 Acts of Kindness</h2>
+                        <span class="kindness-count">8 acts this month</span>
+                    </div>
+                    
+                    <div class="kindness-suggestion">
+                        <h3>Today's Suggestion</h3>
+                        <div class="kindness-idea">
+                            <div class="kindness-icon">🌻</div>
+                            <div class="kindness-text">
+                                <strong>Compliment a Stranger</strong>
+                                <p>Give someone a genuine compliment today - it could brighten their entire day!</p>
+                            </div>
+                        </div>
+                        <div class="kindness-actions">
+                            <button class="done-kindness">✅ Done</button>
+                            <button class="skip-kindness">⏭️ Next Idea</button>
+                        </div>
+                    </div>
+                    
+                    <div class="kindness-history">
+                        <h3>Recent Acts</h3>
+                        <div class="kindness-list">
+                            <div class="kindness-item completed">
+                                <span class="kindness-emoji">☕</span>
+                                <span class="kindness-description">Bought coffee for the person behind me</span>
+                                <span class="kindness-date">Yesterday</span>
+                            </div>
+                            <div class="kindness-item completed">
+                                <span class="kindness-emoji">💌</span>
+                                <span class="kindness-description">Sent a thank you note to my teacher</span>
+                                <span class="kindness-date">3 days ago</span>
+                            </div>
+                            <div class="kindness-item completed">
+                                <span class="kindness-emoji">🚪</span>
+                                <span class="kindness-description">Held the door for someone with heavy bags</span>
+                                <span class="kindness-date">5 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Happiness Quotes -->
+                <div class="content-card quotes-card">
+                    <div class="card-header">
+                        <h2 class="card-title">💭 Happiness Quotes</h2>
+                        <div class="quotes-badge badge">Daily wisdom</div>
+                    </div>
+                    
+                    <div class="quote-display">
+                        <div class="quote-text">
+                            "The purpose of our lives is to be happy."
+                        </div>
+                        <div class="quote-author">- Dalai Lama</div>
+                    </div>
+                    
+                    <div class="quote-actions">
+                        <button class="new-quote-btn">🔄 New Quote</button>
+                        <button class="favorite-quote">❤️ Favorite</button>
+                        <button class="share-quote">📤 Share</button>
+                        <button class="copy-quote">📋 Copy</button>
+                    </div>
+                    
+                    <div class="favorite-quotes">
+                        <h3>Your Favorites</h3>
+                        <div class="favorite-list">
+                            <div class="favorite-quote-item">
+                                "Happiness is not something ready made. It comes from your own actions." - Dalai Lama
+                            </div>
+                            <div class="favorite-quote-item">
+                                "The way to get started is to quit talking and begin doing." - Walt Disney
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Joy Activities -->
+                <div class="content-card joy-activities-card">
+                    <div class="card-header">
+                        <h2 class="card-title">🎉 Joy Activities</h2>
+                        <select class="mood-filter" id="activity-filter">
+                            <option value="all">All Activities</option>
+                            <option value="energize">Need Energy</option>
+                            <option value="calm">Need Calm</option>
+                            <option value="social">Feel Social</option>
+                            <option value="solo">Want Alone Time</option>
+                        </select>
+                    </div>
+                    
+                    <div class="activities-grid">
+                        <div class="activity-card" data-category="energize">
+                            <div class="activity-icon">🎵</div>
+                            <h4>Dance Party</h4>
+                            <p>Put on your favorite songs and dance like nobody's watching!</p>
+                            <div class="activity-meta">
+                                <span class="activity-time">10-30 min</span>
+                                <span class="activity-mood">Energizing</span>
+                            </div>
+                            <button class="try-activity">Try Now</button>
+                        </div>
+                        
+                        <div class="activity-card" data-category="calm">
+                            <div class="activity-icon">🌸</div>
+                            <h4>Mindful Walking</h4>
+                            <p>Take a peaceful walk and notice the beauty around you.</p>
+                            <div class="activity-meta">
+                                <span class="activity-time">15-45 min</span>
+                                <span class="activity-mood">Calming</span>
+                            </div>
+                            <button class="try-activity">Try Now</button>
+                        </div>
+                        
+                        <div class="activity-card" data-category="social">
+                            <div class="activity-icon">📞</div>
+                            <h4>Call a Friend</h4>
+                            <p>Reach out to someone you care about and share some laughs.</p>
+                            <div class="activity-meta">
+                                <span class="activity-time">20-60 min</span>
+                                <span class="activity-mood">Social</span>
+                            </div>
+                            <button class="try-activity">Try Now</button>
+                        </div>
+                        
+                        <div class="activity-card" data-category="solo">
+                            <div class="activity-icon">📚</div>
+                            <h4>Read Something Inspiring</h4>
+                            <p>Dive into a book, article, or quote that lifts your spirits.</p>
+                            <div class="activity-meta">
+                                <span class="activity-time">15-60 min</span>
+                                <span class="activity-mood">Peaceful</span>
+                            </div>
+                            <button class="try-activity">Try Now</button>
+                        </div>
+                        
+                        <div class="activity-card" data-category="energize">
+                            <div class="activity-icon">🎨</div>
+                            <h4>Creative Expression</h4>
+                            <p>Draw, paint, write, or create something beautiful.</p>
+                            <div class="activity-meta">
+                                <span class="activity-time">30-90 min</span>
+                                <span class="activity-mood">Creative</span>
+                            </div>
+                            <button class="try-activity">Try Now</button>
+                        </div>
+                        
+                        <div class="activity-card" data-category="calm">
+                            <div class="activity-icon">🛁</div>
+                            <h4>Self-Care Ritual</h4>
+                            <p>Take a bath, do skincare, or pamper yourself with love.</p>
+                            <div class="activity-meta">
+                                <span class="activity-time">30-60 min</span>
+                                <span class="activity-mood">Nurturing</span>
+                            </div>
+                            <button class="try-activity">Try Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buy Happiness Store -->
+                <div class="content-card buy-happiness-card">
+                    <div class="card-header">
+                        <h2 class="card-title">🛒 Buy Happiness</h2>
+                        <div class="coin-balance badge">💰 <span id="coin-count">250</span> coins</div>
+                    </div>
+                    
+                    <div class="store-intro">
+                        <p>Unlock premium happiness experiences and exclusive activities to boost your joy! 🌟</p>
+                    </div>
+                    
+                    <div class="store-tabs">
+                        <button class="store-tab active" data-tab="activities">🎯 Activities</button>
+                        <button class="store-tab" data-tab="features">⭐ Features</button>
+                        <button class="store-tab" data-tab="bundles">📦 Bundles</button>
+                    </div>
+                    
+                    <!-- Activities Tab -->
+                    <div class="store-content activities-store active">
+                        <div class="store-grid">
+                            <div class="store-item" data-price="50" data-id="meditation-pack">
+                                <div class="store-item-icon">🧘‍♀️</div>
+                                <h4>Premium Meditation Pack</h4>
+                                <p>Unlock 10 guided meditations with nature sounds and breathing exercises.</p>
+                                <div class="store-item-price">💰 50 coins</div>
+                                <button class="buy-btn" data-item="meditation-pack">Buy Now</button>
+                            </div>
+                            
+                            <div class="store-item" data-price="75" data-id="workout-collection">
+                                <div class="store-item-icon">💪</div>
+                                <h4>Happy Workout Collection</h4>
+                                <p>Access 15 energizing workouts designed to boost endorphins and mood.</p>
+                                <div class="store-item-price">💰 75 coins</div>
+                                <button class="buy-btn" data-item="workout-collection">Buy Now</button>
+                            </div>
+                            
+                            <div class="store-item" data-price="40" data-id="recipe-book">
+                                <div class="store-item-icon">👨‍🍳</div>
+                                <h4>Mood-Boosting Recipe Book</h4>
+                                <p>20 delicious recipes scientifically proven to enhance happiness.</p>
+                                <div class="store-item-price">💰 40 coins</div>
+                                <button class="buy-btn" data-item="recipe-book">Buy Now</button>
+                            </div>
+                            
+                            <div class="store-item" data-price="60" data-id="creativity-kit">
+                                <div class="store-item-icon">🎨</div>
+                                <h4>Creative Happiness Kit</h4>
+                                <p>Art therapy exercises, creative writing prompts, and DIY projects.</p>
+                                <div class="store-item-price">💰 60 coins</div>
+                                <button class="buy-btn" data-item="creativity-kit">Buy Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Features Tab -->
+                    <div class="store-content features-store">
+                        <div class="store-grid">
+                            <div class="store-item" data-price="100" data-id="premium-analytics">
+                                <div class="store-item-icon">📊</div>
+                                <h4>Premium Analytics</h4>
+                                <p>Advanced mood tracking with insights, trends, and personalized recommendations.</p>
+                                <div class="store-item-price">💰 100 coins</div>
+                                <button class="buy-btn" data-item="premium-analytics">Buy Now</button>
+                            </div>
+                            
+                            <div class="store-item" data-price="80" data-id="custom-affirmations">
+                                <div class="store-item-icon">💝</div>
+                                <h4>Custom Affirmations</h4>
+                                <p>Create and save unlimited personal affirmations with voice recordings.</p>
+                                <div class="store-item-price">💰 80 coins</div>
+                                <button class="buy-btn" data-item="custom-affirmations">Buy Now</button>
+                            </div>
+                            
+                            <div class="store-item" data-price="120" data-id="happiness-coach">
+                                <div class="store-item-icon">🤖</div>
+                                <h4>AI Happiness Coach</h4>
+                                <p>Personal AI assistant that provides daily happiness tips and motivation.</p>
+                                <div class="store-item-price">💰 120 coins</div>
+                                <button class="buy-btn" data-item="happiness-coach">Buy Now</button>
+                            </div>
+                            
+                            <div class="store-item" data-price="90" data-id="social-features">
+                                <div class="store-item-icon">👥</div>
+                                <h4>Social Happiness Features</h4>
+                                <p>Share progress with friends, join happiness challenges, and celebrate together.</p>
+                                <div class="store-item-price">💰 90 coins</div>
+                                <button class="buy-btn" data-item="social-features">Buy Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bundles Tab -->
+                    <div class="store-content bundles-store">
+                        <div class="store-grid">
+                            <div class="store-item featured" data-price="200" data-id="happiness-starter">
+                                <div class="store-item-icon">🌟</div>
+                                <div class="featured-badge">POPULAR</div>
+                                <h4>Happiness Starter Bundle</h4>
+                                <p>Premium Meditation Pack + Workout Collection + Recipe Book (Save 65 coins!)</p>
+                                <div class="store-item-price">
+                                    <span class="original-price">💰 165 coins</span>
+                                    <span class="sale-price">💰 200 coins</span>
+                                </div>
+                                <button class="buy-btn" data-item="happiness-starter">Buy Bundle</button>
+                            </div>
+                            
+                            <div class="store-item featured" data-price="350" data-id="complete-happiness">
+                                <div class="store-item-icon">💎</div>
+                                <div class="featured-badge">BEST VALUE</div>
+                                <h4>Complete Happiness Suite</h4>
+                                <p>Everything unlocked! All activities, features, and premium content (Save 215 coins!)</p>
+                                <div class="store-item-price">
+                                    <span class="original-price">💰 565 coins</span>
+                                    <span class="sale-price">💰 350 coins</span>
+                                </div>
+                                <button class="buy-btn" data-item="complete-happiness">Buy Complete Suite</button>
+                            </div>
+                            
+                            <div class="store-item" data-price="150" data-id="wellness-combo">
+                                <div class="store-item-icon">🌈</div>
+                                <h4>Wellness Combo</h4>
+                                <p>Premium Analytics + Custom Affirmations + Creative Kit (Save 30 coins!)</p>
+                                <div class="store-item-price">
+                                    <span class="original-price">💰 240 coins</span>
+                                    <span class="sale-price">💰 150 coins</span>
+                                </div>
+                                <button class="buy-btn" data-item="wellness-combo">Buy Combo</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="store-footer">
+                        <p>💡 <strong>Tip:</strong> Complete daily activities to earn more coins!</p>
+                        <button class="earn-coins-btn">🎯 How to Earn Coins</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="page-footer">
+            <p>© 2025 Byom. Spreading joy and happiness, one smile at a time.</p>
+            <div class="footer-nav">
+                <a href="body.html" class="footer-link">Explore Body →</a>
+                <a href="mind.html" class="footer-link">Explore Mind →</a>
+                <a href="soul.html" class="footer-link">Explore Soul →</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="happiness.js"></script>
+</body>
+</html>
