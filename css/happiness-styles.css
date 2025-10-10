@@ -76,9 +76,12 @@ header {
 /* Main Content Grid */
 .content-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 25px;
     margin-bottom: 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Card Base Styles - Match site design */
@@ -854,7 +857,8 @@ header {
 }
 
 .skip-kindness:hover {
-    background: #f3f4f6;
+    background: #ec4899;
+    color: white;
     transform: translateY(-2px);
 }
 
@@ -993,7 +997,6 @@ header {
 .store-tab:hover {
     border-color: #f59e0b;
     background: #f59e0b;
-    color: white;
     transform: translateY(-2px);
 }
 
@@ -1446,6 +1449,14 @@ footer {
 }
 
 /* Responsive Design - Match main site breakpoints */
+@media (max-width: 1024px) {
+    .content-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 10px;
+    }
+}
+
 @media (max-width: 768px) {
     .title {
         font-size: 2.5rem;
@@ -1645,11 +1656,6 @@ footer {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
-.store-tab:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
 }
 
 /* Store Responsive Improvements */
