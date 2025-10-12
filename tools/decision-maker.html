@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Maker - Byom Tools</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/tools-styles.css">
+    <style>
+        .decision-wheel {
+            width: 300px;
+            height: 300px;
+            margin: 30px auto;
+            position: relative;
+        }
+        .wheel-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #667eea;
+            overflow: hidden;
+            position: relative;
+            transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+        .wheel-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%);
+            transform-origin: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #f5576c;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+            z-index: 10;
+        }
+        .options-form {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .option-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .option-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        .remove-option-btn {
+            padding: 12px 20px;
+            background: #f5576c;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .add-option-btn, .spin-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        .add-option-btn {
+            background: #e0e0e0;
+            color: #333;
+        }
+        .spin-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .spin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+        .spin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .result-display {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        .coin-flip {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            perspective: 1000px;
+        }
+        .coin {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+            cursor: pointer;
+        }
+        .coin.flipping {
+            animation: flip 1s ease-out;
+        }
+        @keyframes flip {
+            0% { transform: rotateY(0); }
+            100% { transform: rotateY(1800deg); }
+        }
+        .coin-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        .coin-heads {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .coin-tails {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="page-title">🎲 Decision Maker</h1>
+            <p class="page-subtitle">Let fate help you decide</p>
+        </header>
+
+        <main class="tool-content">
+            <div class="tool-interface">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="wheel">Decision Wheel</button>
+                    <button class="tab-btn" data-tab="coin">Coin Flip</button>
+                    <button class="tab-btn" data-tab="random">Random Number</button>
+                </div>
+
+                <!-- Decision Wheel Tab -->
+                <div class="tab-content active" id="wheelTab">
+                    <div class="options-form">
+                        <div id="optionsContainer">
+                            <div class="option-input-group">
+                                <input type="text" class="option-input" placeholder="Option 1" value="Yes">
+                            </div>
+                            <div class="option-input-group">
+                                <input type="text" class="option-input" placeholder="Option 2" value="No">
+                            </div>
+                            <div class="option-input-group">
+                                <input type="text" class="option-input" placeholder="Option 3" value="Maybe">
+                            </div>
+                        </div>
+                        <button class="add-option-btn" id="addOptionBtn">+ Add Option</button>
+                        <button class="spin-btn" id="spinBtn">Spin the Wheel! 🎡</button>
+                    </div>
+
+                    <div class="decision-wheel">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel-container" id="wheelContainer"></div>
+                    </div>
+
+                    <div class="result-display" id="resultDisplay" style="display: none;"></div>
+                </div>
+
+                <!-- Coin Flip Tab -->
+                <div class="tab-content" id="coinTab">
+                    <div class="coin-flip">
+                        <div class="coin" id="coin">
+                            <div class="coin-face coin-heads">HEADS</div>
+                            <div class="coin-face coin-tails">TAILS</div>
+                        </div>
+                    </div>
+                    <button class="spin-btn" id="flipCoinBtn">Flip Coin 🪙</button>
+                    <div class="result-display" id="coinResult" style="display: none;"></div>
+                </div>
+
+                <!-- Random Number Tab -->
+                <div class="tab-content" id="randomTab">
+                    <div class="options-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 10px; color: #666;">Minimum:</label>
+                                <input type="number" class="option-input" id="minNumber" value="1">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 10px; color: #666;">Maximum:</label>
+                                <input type="number" class="option-input" id="maxNumber" value="100">
+                            </div>
+                        </div>
+                        <button class="spin-btn" id="generateNumberBtn">Generate Random Number 🎲</button>
+                    </div>
+                    <div class="result-display" id="numberResult" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                <button class="back-button" onclick="window.location.href='../tools.html'">
+                    ← Back to Tools
+                </button>
+            </div>
+        </main>
+
+        <footer style="text-align: center; padding: 20px; color: #ffffff; margin-top: 40px;">
+            <p>© 2025 Byom. Journey through Body, Mind & Soul.</p>
+        </footer>
+    </div>
+
+    <script>
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2'];
+        
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab + 'Tab').classList.add('active');
+            });
+        });
+
+        // Decision Wheel
+        const optionsContainer = document.getElementById('optionsContainer');
+        const wheelContainer = document.getElementById('wheelContainer');
+        const spinBtn = document.getElementById('spinBtn');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const addOptionBtn = document.getElementById('addOptionBtn');
+
+        function getOptions() {
+            const inputs = optionsContainer.querySelectorAll('.option-input');
+            return Array.from(inputs).map(input => input.value.trim()).filter(val => val);
+        }
+
+        function renderWheel() {
+            const options = getOptions();
+            const segmentAngle = 360 / options.length;
+            
+            wheelContainer.innerHTML = options.map((option, index) => {
+                const rotation = segmentAngle * index;
+                return `
+                    <div class="wheel-segment" style="
+                        background: ${colors[index % colors.length]};
+                        transform: rotate(${rotation}deg);
+                        clip-path: polygon(
+                            50% 50%,
+                            50% 0%,
+                            ${50 + 50 * Math.sin(segmentAngle * Math.PI / 180)}% ${50 - 50 * Math.cos(segmentAngle * Math.PI / 180)}%
+                        );
+                    ">
+                        <div style="color: white; font-weight: bold; transform: rotate(${segmentAngle/2}deg) translateY(-80px);">
+                            ${option}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        addOptionBtn.addEventListener('click', () => {
+            const newOption = document.createElement('div');
+            newOption.className = 'option-input-group';
+            newOption.innerHTML = `
+                <input type="text" class="option-input" placeholder="New option">
+                <button class="remove-option-btn">✕</button>
+            `;
+            newOption.querySelector('.remove-option-btn').addEventListener('click', () => {
+                newOption.remove();
+                renderWheel();
+            });
+            optionsContainer.appendChild(newOption);
+            renderWheel();
+        });
+
+        optionsContainer.addEventListener('input', renderWheel);
+
+        spinBtn.addEventListener('click', () => {
+            const options = getOptions();
+            if (options.length < 2) {
+                alert('Please add at least 2 options');
+                return;
+            }
+
+            spinBtn.disabled = true;
+            resultDisplay.style.display = 'none';
+
+            const randomIndex = Math.floor(Math.random() * options.length);
+            const segmentAngle = 360 / options.length;
+            const targetAngle = (360 * 5) + (randomIndex * segmentAngle) + (segmentAngle / 2);
+
+            wheelContainer.style.transform = `rotate(${targetAngle}deg)`;
+
+            setTimeout(() => {
+                resultDisplay.textContent = `🎉 Result: ${options[randomIndex]}`;
+                resultDisplay.style.display = 'block';
+                spinBtn.disabled = false;
+                wheelContainer.style.transform = 'rotate(0deg)';
+                wheelContainer.style.transition = 'none';
+                setTimeout(() => {
+                    wheelContainer.style.transition = 'transform 3s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                }, 50);
+            }, 3000);
+        });
+
+        // Coin Flip
+        const coin = document.getElementById('coin');
+        const flipCoinBtn = document.getElementById('flipCoinBtn');
+        const coinResult = document.getElementById('coinResult');
+
+        flipCoinBtn.addEventListener('click', () => {
+            flipCoinBtn.disabled = true;
+            coinResult.style.display = 'none';
+            coin.classList.add('flipping');
+
+            const result = Math.random() < 0.5 ? 'HEADS' : 'TAILS';
+
+            setTimeout(() => {
+                coin.classList.remove('flipping');
+                coinResult.textContent = `🪙 Result: ${result}`;
+                coinResult.style.display = 'block';
+                flipCoinBtn.disabled = false;
+            }, 1000);
+        });
+
+        // Random Number
+        const generateNumberBtn = document.getElementById('generateNumberBtn');
+        const numberResult = document.getElementById('numberResult');
+        const minNumber = document.getElementById('minNumber');
+        const maxNumber = document.getElementById('maxNumber');
+
+        generateNumberBtn.addEventListener('click', () => {
+            const min = parseInt(minNumber.value);
+            const max = parseInt(maxNumber.value);
+
+            if (isNaN(min) || isNaN(max)) {
+                alert('Please enter valid numbers');
+                return;
+            }
+
+            if (min >= max) {
+                alert('Minimum must be less than maximum');
+                return;
+            }
+
+            const random = Math.floor(Math.random() * (max - min + 1)) + min;
+            numberResult.textContent = `🎲 Your Random Number: ${random}`;
+            numberResult.style.display = 'block';
+        });
+
+        // Initial render
+        renderWheel();
+    </script>
+</body>
+</html>
