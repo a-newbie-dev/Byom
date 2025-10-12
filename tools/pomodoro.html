@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer - Byom Tools</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/tools-styles.css">
+    <style>
+        .timer-display {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 30px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .timer-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .timer-button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .start-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        .pause-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        .reset-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        .timer-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .timer-modes {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .mode-btn {
+            padding: 10px 25px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .mode-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        .session-info {
+            font-size: 1.2rem;
+            color: #555;
+            margin-top: 20px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 100%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="page-title">⏰ Pomodoro Timer</h1>
+            <p class="page-subtitle">Stay focused and productive</p>
+        </header>
+
+        <main class="tool-content">
+            <div class="tool-interface">
+                <div class="timer-modes">
+                    <button class="mode-btn active" data-mode="pomodoro">Pomodoro (25m)</button>
+                    <button class="mode-btn" data-mode="short">Short Break (5m)</button>
+                    <button class="mode-btn" data-mode="long">Long Break (15m)</button>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div class="timer-display" id="timerDisplay">25:00</div>
+
+                <div class="timer-controls">
+                    <button class="timer-button start-btn" id="startBtn">Start</button>
+                    <button class="timer-button pause-btn" id="pauseBtn" style="display: none;">Pause</button>
+                    <button class="timer-button reset-btn" id="resetBtn">Reset</button>
+                </div>
+
+                <div class="session-info" id="sessionInfo">
+                    Sessions completed: <strong>0</strong>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: #fff; border-radius: 10px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">📋 How to use Pomodoro Technique:</h3>
+                    <ol style="text-align: left; color: #555; line-height: 2;">
+                        <li>Choose a task to work on</li>
+                        <li>Start a 25-minute Pomodoro session</li>
+                        <li>Work until the timer rings</li>
+                        <li>Take a 5-minute short break</li>
+                        <li>After 4 Pomodoros, take a 15-minute long break</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                <button class="back-button" onclick="window.location.href='../tools.html'">
+                    ← Back to Tools
+                </button>
+            </div>
+        </main>
+
+        <footer style="text-align: center; padding: 20px; color: #ffffff; margin-top: 40px;">
+            <p>© 2025 Byom. Journey through Body, Mind & Soul.</p>
+        </footer>
+    </div>
+
+    <script>
+        let timeLeft = 25 * 60;
+        let totalTime = 25 * 60;
+        let isRunning = false;
+        let timerId = null;
+        let sessionsCompleted = 0;
+        let currentMode = 'pomodoro';
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const sessionInfo = document.getElementById('sessionInfo');
+        const progressFill = document.getElementById('progressFill');
+        const modeButtons = document.querySelectorAll('.mode-btn');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateDisplay() {
+            timerDisplay.textContent = formatTime(timeLeft);
+            const progress = ((totalTime - timeLeft) / totalTime) * 100;
+            progressFill.style.width = progress + '%';
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                startBtn.style.display = 'none';
+                pauseBtn.style.display = 'inline-block';
+                
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    updateDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        pauseTimer();
+                        playSound();
+                        
+                        if (currentMode === 'pomodoro') {
+                            sessionsCompleted++;
+                            sessionInfo.innerHTML = `Sessions completed: <strong>${sessionsCompleted}</strong>`;
+                            alert('🎉 Pomodoro completed! Time for a break!');
+                        } else {
+                            alert('✨ Break is over! Ready for another session?');
+                        }
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerId);
+            startBtn.style.display = 'inline-block';
+            pauseBtn.style.display = 'none';
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            setMode(currentMode);
+        }
+
+        function setMode(mode) {
+            pauseTimer();
+            currentMode = mode;
+            
+            modeButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+            
+            if (mode === 'pomodoro') {
+                timeLeft = totalTime = 25 * 60;
+            } else if (mode === 'short') {
+                timeLeft = totalTime = 5 * 60;
+            } else if (mode === 'long') {
+                timeLeft = totalTime = 15 * 60;
+            }
+            
+            updateDisplay();
+        }
+
+        function playSound() {
+            // Simple beep using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+        
+        modeButtons.forEach(btn => {
+            btn.addEventListener('click', () => setMode(btn.dataset.mode));
+        });
+
+        updateDisplay();
+    </script>
+</body>
+</html>

@@ -378,6 +378,17 @@ header {
     transform: scale(1.1);
 }
 
+.tools-card:hover {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 2px solid rgba(34, 197, 94, 0.3);
+}
+
+.tools-card:hover .card-om {
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+    transform: scale(1.1);
+}
+
 .section-card h3, .additional-card h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;

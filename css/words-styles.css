@@ -95,7 +95,7 @@
 .filter-btn.active {
     background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     color: white;
-    border-color: transparent;
+    border: none;
     box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
 }
 

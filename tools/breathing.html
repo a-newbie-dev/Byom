@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathing Exercise - Byom Tools</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/tools-styles.css">
+    <style>
+        .setup-view, .exercise-view {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .setup-view.hidden, .exercise-view.hidden {
+            display: none;
+        }
+        .breathing-circle-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .breathing-circle {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 4s ease-in-out;
+            box-shadow: 0 0 50px rgba(102, 126, 234, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        .breathing-circle.inhale {
+            transform: scale(1.6);
+            box-shadow: 0 0 100px rgba(102, 126, 234, 0.8);
+        }
+        .breathing-circle.exhale {
+            transform: scale(1);
+            box-shadow: 0 0 50px rgba(102, 126, 234, 0.5);
+        }
+        .breathing-text {
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .breathing-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .technique-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .technique-btn {
+            padding: 15px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .technique-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        .technique-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .technique-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .control-btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .start-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        .stop-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .session-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+        
+        /* Exercise View Styles */
+        .exercise-view {
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .exercise-header {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            z-index: 10;
+        }
+        .exercise-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        .exercise-header p {
+            margin: 10px 0 0;
+            opacity: 0.7;
+            font-size: 1rem;
+        }
+        .live-stats {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            z-index: 10;
+        }
+        .live-stat-card {
+            background: transparent;
+            text-align: center;
+        }
+        .live-stat-value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .live-stat-label {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+        .exercise-circle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            z-index: 5;
+        }
+        .exercise-breathing-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 4s ease-in-out, box-shadow 4s ease-in-out;
+            box-shadow: 0 0 60px rgba(102, 126, 234, 0.6),
+                        0 0 0 20px rgba(255, 255, 255, 0.1),
+                        0 0 0 40px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        .exercise-breathing-circle.inhale {
+            transform: scale(1.5);
+            box-shadow: 0 0 120px rgba(102, 126, 234, 0.9),
+                        0 0 0 30px rgba(255, 255, 255, 0.15),
+                        0 0 0 60px rgba(255, 255, 255, 0.08);
+        }
+        .exercise-breathing-circle.exhale {
+            transform: scale(1);
+            box-shadow: 0 0 60px rgba(102, 126, 234, 0.6),
+                        0 0 0 20px rgba(255, 255, 255, 0.1),
+                        0 0 0 40px rgba(255, 255, 255, 0.05);
+        }
+        .exercise-breathing-text {
+            font-size: 1.6rem;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .exercise-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .exercise-stop-btn {
+            padding: 15px 50px;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .exercise-stop-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+        .progress-indicator {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .breathing-circle {
+                width: 200px;
+                height: 200px;
+            }
+            .breathing-circle.inhale {
+                transform: scale(1.4);
+            }
+            .session-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Mobile Exercise View */
+            .exercise-header {
+                top: 20px;
+            }
+            .exercise-header h2 {
+                font-size: 1.4rem;
+            }
+            .exercise-header p {
+                font-size: 0.9rem;
+            }
+            .live-stats {
+                bottom: 90px;
+                gap: 30px;
+                flex-direction: row;
+            }
+            .live-stat-value {
+                font-size: 0.9rem;
+            }
+            .live-stat-label {
+                font-size: 0.6rem;
+            }
+            .exercise-breathing-circle {
+                width: 130px;
+                height: 130px;
+            }
+            .exercise-breathing-circle.inhale {
+                transform: scale(1.4);
+            }
+            .exercise-breathing-text {
+                font-size: 1.4rem;
+            }
+            .exercise-controls {
+                bottom: 30px;
+            }
+            .exercise-stop-btn {
+                padding: 12px 40px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .live-stats {
+                bottom: 80px;
+                gap: 25px;
+            }
+            .live-stat-value {
+                font-size: 0.85rem;
+            }
+            .live-stat-label {
+                font-size: 0.55rem;
+            }
+            .exercise-breathing-circle {
+                width: 100px;
+                height: 100px;
+            }
+            .exercise-breathing-circle.inhale {
+                transform: scale(1.3);
+            }
+            .exercise-breathing-text {
+                font-size: 1.1rem;
+            }
+            .breathing-timer {
+                padding: 10px 20px;
+            }
+            .timer-value {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="page-title">🌬️ Breathing Exercise</h1>
+            <p class="page-subtitle">Find calm through mindful breathing</p>
+        </header>
+
+        <main class="tool-content">
+            <div class="tool-interface">
+                <!-- Setup View -->
+                <div class="setup-view" id="setupView">
+                    <h3 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">Choose a Technique:</h3>
+                    <div class="technique-selector">
+                        <button class="technique-btn active" data-technique="box">
+                            Box Breathing<br><small>(4-4-4-4)</small>
+                        </button>
+                        <button class="technique-btn" data-technique="478">
+                            4-7-8 Technique<br><small>(Relaxation)</small>
+                        </button>
+                        <button class="technique-btn" data-technique="deep">
+                            Deep Breathing<br><small>(5-5)</small>
+                        </button>
+                        <button class="technique-btn" data-technique="calm">
+                            Calming Breath<br><small>(4-6)</small>
+                        </button>
+                    </div>
+
+                    <div class="breathing-circle-container">
+                        <div class="breathing-circle">
+                            <div class="breathing-text">Ready</div>
+                        </div>
+                    </div>
+
+                    <div class="breathing-controls">
+                        <button class="control-btn start-btn" id="startBtn">Start Exercise</button>
+                    </div>
+
+                    <div class="session-stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalBreaths">0</div>
+                            <div class="stat-label">Total Breaths</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalTime">0:00</div>
+                            <div class="stat-label">Total Time</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalSessions">0</div>
+                            <div class="stat-label">Total Sessions</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px; padding: 20px; background: #fff; border-radius: 10px;">
+                        <h3 style="color: #2c3e50; margin-bottom: 15px;">💡 Benefits:</h3>
+                        <ul style="text-align: left; color: #555; line-height: 2;">
+                            <li>Reduces stress and anxiety</li>
+                            <li>Improves focus and concentration</li>
+                            <li>Lowers blood pressure</li>
+                            <li>Enhances sleep quality</li>
+                            <li>Boosts overall well-being</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Exercise View - Full Screen Immersive -->
+                <div class="exercise-view hidden" id="exerciseView">
+                    <div class="exercise-header">
+                        <h2 id="exerciseTechniqueName">Box Breathing</h2>
+                        <p>Focus on your breath and let everything else fade away</p>
+                    </div>
+
+                    <div class="live-stats">
+                        <div class="live-stat-card">
+                            <div class="live-stat-value" id="currentBreaths">0</div>
+                            <div class="live-stat-label">Breaths</div>
+                        </div>
+                        <div class="live-stat-card">
+                            <div class="live-stat-value" id="sessionTime">0:00</div>
+                            <div class="live-stat-label">Duration</div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-circle-wrapper">
+                        <div class="exercise-breathing-circle" id="breathingCircle">
+                            <div class="exercise-breathing-text" id="breathingText">Ready</div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button class="exercise-stop-btn" id="stopBtn">End Session</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                <button class="back-button" onclick="window.location.href='../tools.html'">
+                    ← Back to Tools
+                </button>
+            </div>
+        </main>
+
+        <footer style="text-align: center; padding: 20px; color: #ffffff; margin-top: 40px;">
+            <p>© 2025 Byom. Journey through Body, Mind & Soul.</p>
+        </footer>
+    </div>
+
+    <script>
+        let isRunning = false;
+        let currentTechnique = 'box';
+        let breathCount = 0;
+        let sessionStartTime = null;
+        let sessionTimerId = null;
+        let cycleTimerId = null;
+        
+        // Load stats from localStorage
+        let totalSessions = parseInt(localStorage.getItem('breathingSessions') || '0');
+        let totalBreathsAllTime = parseInt(localStorage.getItem('totalBreaths') || '0');
+        let totalTimeAllTime = parseInt(localStorage.getItem('totalTime') || '0');
+
+        // Views
+        const setupView = document.getElementById('setupView');
+        const exerciseView = document.getElementById('exerciseView');
+        
+        // Setup view elements
+        const startBtn = document.getElementById('startBtn');
+        const techniqueButtons = document.querySelectorAll('.technique-btn');
+        const totalSessionsEl = document.getElementById('totalSessions');
+        const totalBreathsEl = document.getElementById('totalBreaths');
+        const totalTimeEl = document.getElementById('totalTime');
+        
+        // Exercise view elements
+        const breathingCircle = document.getElementById('breathingCircle');
+        const breathingText = document.getElementById('breathingText');
+        const stopBtn = document.getElementById('stopBtn');
+        const currentBreathsEl = document.getElementById('currentBreaths');
+        const sessionTimeEl = document.getElementById('sessionTime');
+        const exerciseTechniqueNameEl = document.getElementById('exerciseTechniqueName');
+
+        const techniques = {
+            box: { inhale: 4, hold1: 4, exhale: 4, hold2: 4, name: 'Box Breathing' },
+            478: { inhale: 4, hold1: 7, exhale: 8, hold2: 0, name: '4-7-8 Technique' },
+            deep: { inhale: 5, hold1: 0, exhale: 5, hold2: 0, name: 'Deep Breathing' },
+            calm: { inhale: 4, hold1: 0, exhale: 6, hold2: 0, name: 'Calming Breath' }
+        };
+
+        // Initialize display
+        updateTotalStats();
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateTotalStats() {
+            totalSessionsEl.textContent = totalSessions;
+            totalBreathsEl.textContent = totalBreathsAllTime;
+            totalTimeEl.textContent = formatTime(totalTimeAllTime);
+        }
+
+        function updateSessionTime() {
+            if (sessionStartTime) {
+                const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
+                sessionTimeEl.textContent = formatTime(elapsed);
+            }
+        }
+
+        function switchToExerciseView() {
+            setupView.classList.add('hidden');
+            exerciseView.classList.remove('hidden');
+            exerciseTechniqueNameEl.textContent = techniques[currentTechnique].name;
+        }
+
+        function switchToSetupView() {
+            exerciseView.classList.add('hidden');
+            setupView.classList.remove('hidden');
+        }
+
+        async function runBreathingCycle() {
+            const technique = techniques[currentTechnique];
+            
+            // Inhale
+            breathingText.textContent = 'Inhale';
+            breathingCircle.classList.remove('exhale');
+            breathingCircle.classList.add('inhale');
+            await sleep(technique.inhale * 1000);
+            
+            if (!isRunning) return;
+            
+            // Hold after inhale
+            if (technique.hold1 > 0) {
+                breathingText.textContent = 'Hold';
+                await sleep(technique.hold1 * 1000);
+                if (!isRunning) return;
+            }
+            
+            // Exhale
+            breathingText.textContent = 'Exhale';
+            breathingCircle.classList.remove('inhale');
+            breathingCircle.classList.add('exhale');
+            await sleep(technique.exhale * 1000);
+            
+            if (!isRunning) return;
+            
+            // Hold after exhale
+            if (technique.hold2 > 0) {
+                breathingText.textContent = 'Hold';
+                await sleep(technique.hold2 * 1000);
+                if (!isRunning) return;
+            }
+            
+            breathCount++;
+            currentBreathsEl.textContent = breathCount;
+            
+            if (isRunning) {
+                runBreathingCycle();
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function startExercise() {
+            isRunning = true;
+            breathCount = 0;
+            sessionStartTime = Date.now();
+            currentBreathsEl.textContent = '0';
+            sessionTimeEl.textContent = '0:00';
+            
+            // Disable technique selection during exercise
+            techniqueButtons.forEach(btn => btn.disabled = true);
+            
+            // Switch to exercise view
+            switchToExerciseView();
+            
+            // Start session timer and breathing cycle
+            sessionTimerId = setInterval(updateSessionTime, 1000);
+            
+            // Small delay before starting to let user prepare
+            setTimeout(() => {
+                if (isRunning) {
+                    runBreathingCycle();
+                }
+            }, 1000);
+        }
+
+        function stopExercise() {
+            isRunning = false;
+            clearInterval(sessionTimerId);
+            
+            breathingText.textContent = 'Ready';
+            breathingCircle.classList.remove('inhale', 'exhale');
+            
+            // Save stats if exercise was completed
+            if (breathCount > 0) {
+                const sessionDuration = Math.floor((Date.now() - sessionStartTime) / 1000);
+                
+                totalSessions++;
+                totalBreathsAllTime += breathCount;
+                totalTimeAllTime += sessionDuration;
+                
+                localStorage.setItem('breathingSessions', totalSessions);
+                localStorage.setItem('totalBreaths', totalBreathsAllTime);
+                localStorage.setItem('totalTime', totalTimeAllTime);
+                
+                updateTotalStats();
+            }
+            
+            // Re-enable technique selection
+            techniqueButtons.forEach(btn => btn.disabled = false);
+            
+            // Switch back to setup view
+            switchToSetupView();
+        }
+
+        // Event listeners
+        techniqueButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.disabled) return;
+                
+                techniqueButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTechnique = btn.dataset.technique;
+            });
+        });
+
+        startBtn.addEventListener('click', startExercise);
+        stopBtn.addEventListener('click', stopExercise);
+    </script>
+</body>
+</html>

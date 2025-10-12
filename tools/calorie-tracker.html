@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Tracker</title>
+    <link rel="stylesheet" href="css/calorie-tracker.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-utensils"></i> Calorie Tracker</h1>
+                <p>Track your daily nutrition</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Daily Summary Card -->
+            <div class="summary-card">
+                <h2>Today's Summary</h2>
+                <div class="nutrition-summary">
+                    <div class="nutrition-item">
+                        <span class="label">Calories</span>
+                        <span class="value" id="total-calories">0</span>
+                        <span class="unit">kcal</span>
+                    </div>
+                    <div class="nutrition-item">
+                        <span class="label">Protein</span>
+                        <span class="value" id="total-protein">0</span>
+                        <span class="unit">g</span>
+                    </div>
+                    <div class="nutrition-item">
+                        <span class="label">Carbs</span>
+                        <span class="value" id="total-carbs">0</span>
+                        <span class="unit">g</span>
+                    </div>
+                    <div class="nutrition-item">
+                        <span class="label">Fat</span>
+                        <span class="value" id="total-fat">0</span>
+                        <span class="unit">g</span>
+                    </div>
+                    <div class="nutrition-item">
+                        <span class="label">Fiber</span>
+                        <span class="value" id="total-fiber">0</span>
+                        <span class="unit">g</span>
+                    </div>
+                </div>
+                <button class="reset-btn" onclick="resetDay()">
+                    <i class="fas fa-refresh"></i> Reset Day
+                </button>
+            </div>
+
+            <div class="content-grid">
+                <!-- Food Database -->
+                <div class="food-database">
+                    <div class="section-header">
+                        <h2><i class="fas fa-search"></i> Food Database</h2>
+                        <button class="btn-add-custom" onclick="openCustomFoodModal()" title="Add your own custom food">
+                            <i class="fas fa-plus"></i> Add Custom Food
+                        </button>
+                    </div>
+                    <div class="controls-container">
+                        <div class="search-container">
+                            <input type="text" id="search-input" placeholder="Search foods...">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                        <div class="sort-container">
+                            <label for="sort-select">Sort by:</label>
+                            <select id="sort-select" onchange="handleSort()">
+                                <option value="name">Name (A-Z)</option>
+                                <option value="calories">Calories</option>
+                                <option value="protein">Protein</option>
+                                <option value="carbs">Carbs</option>
+                                <option value="fat">Fat</option>
+                                <option value="fiber">Fiber</option>
+                                <option value="category">Category</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="food-grid" id="food-grid">
+                        <!-- Food items will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Today's Intake -->
+                <div class="intake-section">
+                    <h2><i class="fas fa-calendar-day"></i> Today's Intake</h2>
+                    <div class="intake-list" id="intake-list">
+                        <div class="empty-state">
+                            <i class="fas fa-plate-wheat"></i>
+                            <p>No items added yet</p>
+                            <small>Start adding foods from the database</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Item Modal -->
+    <div class="modal" id="add-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Item</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="food-info" id="food-info">
+                    <!-- Food information will be populated -->
+                </div>
+                <div class="quantity-selector">
+                    <label for="quantity">Quantity:</label>
+                    <div class="quantity-controls">
+                        <div class="quantity-input">
+                            <button type="button" onclick="adjustQuantity(-1)">-</button>
+                            <input type="number" id="quantity" value="1" min="0.1" step="0.1">
+                            <button type="button" onclick="adjustQuantity(1)">+</button>
+                        </div>
+                        <div class="modal-actions">
+                            <button class="btn-primary" onclick="addToIntake()">Add to Today</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="calculated-nutrition" id="calculated-nutrition">
+                    <!-- Calculated nutrition will be shown -->
+                </div>
+            </div>
+            <div class="modal-footer" style="display: none;">
+                <!-- Buttons moved to quantity section for better layout -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Custom Food Modal -->
+    <div class="modal" id="custom-food-modal">
+        <div class="modal-content custom-food-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus-circle"></i> Add Custom Food</h3>
+                <button class="close-btn" onclick="closeCustomFoodModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="custom-food-form" onsubmit="saveCustomFood(event)">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="custom-name">Food Name *</label>
+                            <input type="text" id="custom-name" required placeholder="e.g., Homemade Dal Makhani">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="custom-emoji">Emoji (optional)</label>
+                            <input type="text" id="custom-emoji" maxlength="2" placeholder="🍲">
+                            <small>Choose an emoji to represent your food</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="custom-category">Category *</label>
+                            <select id="custom-category" required>
+                                <option value="">Select Category</option>
+                                <option value="grains">🌾 Grains</option>
+                                <option value="vegetables">🥬 Vegetables</option>
+                                <option value="dairy">🥛 Dairy</option>
+                                <option value="fruits">🍎 Fruits</option>
+                                <option value="dryfruits">🌰 Dry Fruits</option>
+                                <option value="indian">🍛 Indian Dishes</option>
+                                <option value="custom">✨ Custom</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="custom-serving">Serving Size (g) *</label>
+                            <input type="number" id="custom-serving" required min="1" value="100" placeholder="100">
+                            <small>Per 100g is standard</small>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-inputs">
+                        <h4><i class="fas fa-chart-pie"></i> Nutrition Information (per serving)</h4>
+                        <p class="help-text">Enter nutritional values per serving size specified above</p>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="custom-calories">Calories (kcal) *</label>
+                                <input type="number" id="custom-calories" required min="0" step="0.1" placeholder="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="custom-protein">Protein (g) *</label>
+                                <input type="number" id="custom-protein" required min="0" step="0.1" placeholder="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="custom-carbs">Carbs (g) *</label>
+                                <input type="number" id="custom-carbs" required min="0" step="0.1" placeholder="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="custom-fat">Fat (g) *</label>
+                                <input type="number" id="custom-fat" required min="0" step="0.1" placeholder="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="custom-fiber">Fiber (g) *</label>
+                                <input type="number" id="custom-fiber" required min="0" step="0.1" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeCustomFoodModal()">Cancel</button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Save Food
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+        <div class="back-button-container">
+            <button class="back-button" onclick="window.location.href='../tools.html'">
+                ← Back to Tools
+            </button>
+        </div>
+
+        <footer style="text-align: center; padding: 20px; color: #666; margin-top: 40px;">
+            <p>© 2025 Byom. Journey through Body, Mind & Soul.</p>
+        </footer>
+
+    <script src="js/calorie-tracker.js"></script>
+</body>
+</html>
