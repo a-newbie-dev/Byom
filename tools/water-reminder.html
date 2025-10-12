@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Reminder - Byom Tools</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/tools-styles.css">
+    <style>
+        .water-tracker {
+            text-align: center;
+        }
+        .water-goal {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .water-visual {
+            width: 200px;
+            height: 300px;
+            margin: 30px auto;
+            position: relative;
+            background: linear-gradient(to bottom, #fff 0%, #e0f2fe 100%);
+            border: 3px solid #0284c7;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        .water-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, #0284c7 0%, #38bdf8 100%);
+            transition: height 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .glass-icons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .glass-icon {
+            width: 60px;
+            height: 80px;
+            background: #f0f9ff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .glass-icon.filled {
+            background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+            border-color: #0284c7;
+            transform: scale(1.05);
+        }
+        .glass-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0284c7;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .control-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .add-glass-btn {
+            background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+        }
+        .reset-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .goal-setting {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .goal-input {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            width: 100px;
+            font-size: 1rem;
+        }
+        .reminder-settings {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        .reminder-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #0284c7;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="page-title">💧 Water Reminder</h1>
+            <p class="page-subtitle">Stay hydrated, stay healthy</p>
+        </header>
+
+        <main class="tool-content">
+            <div class="tool-interface water-tracker">
+                <div class="water-goal">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">Daily Goal</h3>
+                    <div class="goal-setting">
+                        <input type="number" class="goal-input" id="goalInput" value="8" min="1" max="20">
+                        <span style="color: #666;">glasses (250ml each)</span>
+                    </div>
+                </div>
+
+                <div class="water-visual">
+                    <div class="water-fill" id="waterFill" style="height: 0%;">
+                        <span id="percentage">0%</span>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-value" id="consumed">0</div>
+                        <div class="stat-label">Glasses</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="volume">0ml</div>
+                        <div class="stat-label">Volume</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="remaining">8</div>
+                        <div class="stat-label">Remaining</div>
+                    </div>
+                </div>
+
+                <div class="glass-icons" id="glassIcons"></div>
+
+                <div class="controls">
+                    <button class="control-btn add-glass-btn" id="addGlassBtn">💧 Add Glass</button>
+                    <button class="control-btn reset-btn" id="resetBtn">🔄 Reset Day</button>
+                </div>
+
+                <div class="reminder-settings">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">Reminders</h3>
+                    <div class="reminder-toggle">
+                        <span style="color: #666;">Enable hourly reminders</span>
+                        <label class="switch">
+                            <input type="checkbox" id="reminderToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p style="color: #999; font-size: 0.9rem; margin-top: 10px;">
+                        Get browser notifications every hour to drink water
+                    </p>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: #f0f9ff; border-radius: 10px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">💡 Benefits of Staying Hydrated:</h3>
+                    <ul style="text-align: left; color: #555; line-height: 2; max-width: 600px; margin: 0 auto;">
+                        <li>Boosts energy and reduces fatigue</li>
+                        <li>Improves brain function and mood</li>
+                        <li>Aids digestion and weight management</li>
+                        <li>Keeps skin healthy and glowing</li>
+                        <li>Helps regulate body temperature</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                <button class="back-button" onclick="window.location.href='../tools.html'">
+                    ← Back to Tools
+                </button>
+            </div>
+        </main>
+
+        <footer style="text-align: center; padding: 20px; color: #ffffff; margin-top: 40px;">
+            <p>© 2025 Byom. Journey through Body, Mind & Soul.</p>
+        </footer>
+    </div>
+
+    <script>
+        let dailyGoal = parseInt(localStorage.getItem('waterGoal') || '8');
+        let consumed = parseInt(localStorage.getItem('waterConsumed') || '0');
+        let lastResetDate = localStorage.getItem('waterLastReset') || new Date().toDateString();
+        let reminderEnabled = localStorage.getItem('waterReminder') === 'true';
+        let reminderInterval = null;
+
+        const goalInput = document.getElementById('goalInput');
+        const waterFill = document.getElementById('waterFill');
+        const percentage = document.getElementById('percentage');
+        const consumedEl = document.getElementById('consumed');
+        const volumeEl = document.getElementById('volume');
+        const remainingEl = document.getElementById('remaining');
+        const glassIcons = document.getElementById('glassIcons');
+        const addGlassBtn = document.getElementById('addGlassBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const reminderToggle = document.getElementById('reminderToggle');
+
+        // Check if it's a new day and reset
+        if (lastResetDate !== new Date().toDateString()) {
+            consumed = 0;
+            localStorage.setItem('waterConsumed', '0');
+            localStorage.setItem('waterLastReset', new Date().toDateString());
+        }
+
+        goalInput.value = dailyGoal;
+        reminderToggle.checked = reminderEnabled;
+
+        function updateDisplay() {
+            const percent = Math.min((consumed / dailyGoal) * 100, 100);
+            waterFill.style.height = percent + '%';
+            percentage.textContent = Math.round(percent) + '%';
+            consumedEl.textContent = consumed;
+            volumeEl.textContent = (consumed * 250) + 'ml';
+            remainingEl.textContent = Math.max(dailyGoal - consumed, 0);
+
+            // Update glass icons
+            glassIcons.innerHTML = '';
+            for (let i = 0; i < dailyGoal; i++) {
+                const glass = document.createElement('div');
+                glass.className = 'glass-icon' + (i < consumed ? ' filled' : '');
+                glass.innerHTML = i < consumed ? '💧' : '🥛';
+                glass.addEventListener('click', () => toggleGlass(i));
+                glassIcons.appendChild(glass);
+            }
+
+            localStorage.setItem('waterConsumed', consumed);
+        }
+
+        function toggleGlass(index) {
+            if (index < consumed) {
+                consumed = index;
+            } else {
+                consumed = index + 1;
+            }
+            updateDisplay();
+        }
+
+        function addGlass() {
+            if (consumed < dailyGoal) {
+                consumed++;
+                updateDisplay();
+
+                if (consumed === dailyGoal) {
+                    setTimeout(() => {
+                        alert('🎉 Congratulations! You\'ve reached your daily water goal!');
+                    }, 500);
+                }
+            } else {
+                alert('🎊 You\'ve already completed your goal! Great job!');
+            }
+        }
+
+        function resetDay() {
+            if (confirm('Are you sure you want to reset your water intake for today?')) {
+                consumed = 0;
+                updateDisplay();
+            }
+        }
+
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }
+
+        function sendReminder() {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('💧 Water Reminder', {
+                    body: 'Time to drink a glass of water! Stay hydrated!',
+                    icon: '💧',
+                    badge: '💧'
+                });
+            }
+        }
+
+        function startReminders() {
+            if (reminderEnabled) {
+                requestNotificationPermission();
+                // Remind every hour (3600000 ms)
+                reminderInterval = setInterval(sendReminder, 3600000);
+            } else {
+                if (reminderInterval) {
+                    clearInterval(reminderInterval);
+                    reminderInterval = null;
+                }
+            }
+        }
+
+        goalInput.addEventListener('change', () => {
+            dailyGoal = parseInt(goalInput.value);
+            localStorage.setItem('waterGoal', dailyGoal);
+            updateDisplay();
+        });
+
+        addGlassBtn.addEventListener('click', addGlass);
+        resetBtn.addEventListener('click', resetDay);
+
+        reminderToggle.addEventListener('change', () => {
+            reminderEnabled = reminderToggle.checked;
+            localStorage.setItem('waterReminder', reminderEnabled);
+            startReminders();
+        });
+
+        // Initial setup
+        updateDisplay();
+        startReminders();
+    </script>
+</body>
+</html>

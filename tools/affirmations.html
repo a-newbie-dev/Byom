@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Affirmations - Byom Tools</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/tools-styles.css">
+    <style>
+        .affirmation-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 30px 0;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .affirmation-text {
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .affirmation-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .control-btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .new-affirmation-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        .category-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .favorite-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .category-card {
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .category-card.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .category-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .favorites-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        .favorite-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .favorite-text {
+            flex: 1;
+            color: #2c3e50;
+            font-style: italic;
+        }
+        .remove-favorite-btn {
+            padding: 8px 15px;
+            background: #f5576c;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="page-title">💫 Daily Affirmations</h1>
+            <p class="page-subtitle">Positive thoughts for a positive life</p>
+        </header>
+
+        <main class="tool-content">
+            <div class="tool-interface">
+                <div class="affirmation-display">
+                    <div class="affirmation-text" id="affirmationText">
+                        "I am worthy of love, happiness, and success"
+                    </div>
+                </div>
+
+                <div class="affirmation-controls">
+                    <button class="control-btn new-affirmation-btn" id="newAffirmationBtn">
+                        ✨ New Affirmation
+                    </button>
+                    <button class="control-btn category-btn" id="categoryBtn">
+                        📂 Categories
+                    </button>
+                    <button class="control-btn favorite-btn" id="favoriteBtn">
+                        ❤️ Add to Favorites
+                    </button>
+                </div>
+
+                <div class="categories" id="categoriesSection" style="display: none;">
+                    <div class="category-card active" data-category="all">
+                        <div class="category-icon">✨</div>
+                        <div class="category-name">All</div>
+                    </div>
+                    <div class="category-card" data-category="confidence">
+                        <div class="category-icon">💪</div>
+                        <div class="category-name">Confidence</div>
+                    </div>
+                    <div class="category-card" data-category="gratitude">
+                        <div class="category-icon">🙏</div>
+                        <div class="category-name">Gratitude</div>
+                    </div>
+                    <div class="category-card" data-category="success">
+                        <div class="category-icon">🎯</div>
+                        <div class="category-name">Success</div>
+                    </div>
+                    <div class="category-card" data-category="peace">
+                        <div class="category-icon">☮️</div>
+                        <div class="category-name">Peace</div>
+                    </div>
+                    <div class="category-card" data-category="health">
+                        <div class="category-icon">🌱</div>
+                        <div class="category-name">Health</div>
+                    </div>
+                </div>
+
+                <div class="favorites-section" id="favoritesSection" style="display: none;">
+                    <h3 style="color: #2c3e50; margin-bottom: 20px;">❤️ Your Favorite Affirmations</h3>
+                    <div id="favoritesList"></div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: #f0f9ff; border-radius: 10px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">💡 How to Use Affirmations:</h3>
+                    <ol style="text-align: left; color: #555; line-height: 2; max-width: 600px; margin: 0 auto;">
+                        <li>Read the affirmation slowly and mindfully</li>
+                        <li>Repeat it to yourself 3-5 times</li>
+                        <li>Close your eyes and visualize it as your reality</li>
+                        <li>Feel the emotions associated with the affirmation</li>
+                        <li>Practice daily for best results</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                <button class="back-button" onclick="window.location.href='../tools.html'">
+                    ← Back to Tools
+                </button>
+            </div>
+        </main>
+
+        <footer style="text-align: center; padding: 20px; color: #ffffff; margin-top: 40px;">
+            <p>© 2025 Byom. Journey through Body, Mind & Soul.</p>
+        </footer>
+    </div>
+
+    <script>
+        const affirmations = {
+            confidence: [
+                "I am confident and capable in all that I do",
+                "I believe in myself and my abilities",
+                "I am worthy of respect and admiration",
+                "I trust my inner wisdom and intuition",
+                "I am strong, brave, and resilient"
+            ],
+            gratitude: [
+                "I am grateful for all the blessings in my life",
+                "I appreciate the beauty in every moment",
+                "I am thankful for my health and vitality",
+                "I recognize and celebrate my achievements",
+                "I am blessed with wonderful people in my life"
+            ],
+            success: [
+                "I am attracting success and abundance",
+                "I achieve my goals with ease and grace",
+                "I am worthy of all the success that comes to me",
+                "Every day brings new opportunities for growth",
+                "I am creating the life of my dreams"
+            ],
+            peace: [
+                "I am at peace with myself and the world",
+                "I release all tension and embrace tranquility",
+                "I choose peace over worry",
+                "I am calm, centered, and balanced",
+                "I let go of what I cannot control"
+            ],
+            health: [
+                "My body is healthy, strong, and full of energy",
+                "I nourish my body with healthy choices",
+                "I am grateful for my body and treat it with love",
+                "Every cell in my body vibrates with health",
+                "I am becoming healthier and stronger every day"
+            ]
+        };
+
+        let currentCategory = 'all';
+        let currentAffirmation = "I am worthy of love, happiness, and success";
+        let favorites = JSON.parse(localStorage.getItem('favoriteAffirmations') || '[]');
+
+        const affirmationText = document.getElementById('affirmationText');
+        const newAffirmationBtn = document.getElementById('newAffirmationBtn');
+        const categoryBtn = document.getElementById('categoryBtn');
+        const favoriteBtn = document.getElementById('favoriteBtn');
+        const categoriesSection = document.getElementById('categoriesSection');
+        const favoritesSection = document.getElementById('favoritesSection');
+        const favoritesList = document.getElementById('favoritesList');
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        function getAllAffirmations() {
+            if (currentCategory === 'all') {
+                return Object.values(affirmations).flat();
+            }
+            return affirmations[currentCategory] || [];
+        }
+
+        function getRandomAffirmation() {
+            const pool = getAllAffirmations();
+            return pool[Math.floor(Math.random() * pool.length)];
+        }
+
+        function showNewAffirmation() {
+            currentAffirmation = getRandomAffirmation();
+            affirmationText.textContent = `"${currentAffirmation}"`;
+            affirmationText.style.opacity = '0';
+            setTimeout(() => {
+                affirmationText.style.transition = 'opacity 0.5s ease';
+                affirmationText.style.opacity = '1';
+            }, 50);
+        }
+
+        function toggleCategories() {
+            if (categoriesSection.style.display === 'none') {
+                categoriesSection.style.display = 'grid';
+                favoritesSection.style.display = 'none';
+            } else {
+                categoriesSection.style.display = 'none';
+            }
+        }
+
+        function toggleFavorites() {
+            if (favoritesSection.style.display === 'none') {
+                renderFavorites();
+                favoritesSection.style.display = 'block';
+                categoriesSection.style.display = 'none';
+            } else {
+                favoritesSection.style.display = 'none';
+            }
+        }
+
+        function addToFavorites() {
+            if (!favorites.includes(currentAffirmation)) {
+                favorites.push(currentAffirmation);
+                localStorage.setItem('favoriteAffirmations', JSON.stringify(favorites));
+                alert('❤️ Added to favorites!');
+            } else {
+                alert('This affirmation is already in your favorites!');
+            }
+        }
+
+        function removeFromFavorites(affirmation) {
+            favorites = favorites.filter(fav => fav !== affirmation);
+            localStorage.setItem('favoriteAffirmations', JSON.stringify(favorites));
+            renderFavorites();
+        }
+
+        function renderFavorites() {
+            if (favorites.length === 0) {
+                favoritesList.innerHTML = '<p style="text-align: center; color: #999;">No favorites yet. Click the heart button to add affirmations!</p>';
+                return;
+            }
+
+            favoritesList.innerHTML = favorites.map(fav => `
+                <div class="favorite-item">
+                    <div class="favorite-text">"${fav}"</div>
+                    <button class="remove-favorite-btn" onclick="removeFromFavorites('${fav.replace(/'/g, "\\'")}')">✕</button>
+                </div>
+            `).join('');
+        }
+
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                categoryCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                currentCategory = card.dataset.category;
+                showNewAffirmation();
+            });
+        });
+
+        newAffirmationBtn.addEventListener('click', showNewAffirmation);
+        categoryBtn.addEventListener('click', toggleCategories);
+        favoriteBtn.addEventListener('click', addToFavorites);
+
+        // Make function global for onclick
+        window.removeFromFavorites = removeFromFavorites;
+
+        // Show initial affirmation
+        showNewAffirmation();
+    </script>
+</body>
+</html>
